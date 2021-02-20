@@ -2,7 +2,7 @@ import click
 from flask.cli import with_appcontext
 from application.database import db
 from application import bcrypt
-from .models import User, Post, Tag
+from .models import User, Post
 from flask import Blueprint
 
 cmd = Blueprint('commands', __name__)
