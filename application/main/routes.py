@@ -19,16 +19,20 @@ def home():
 def about():
     return render_template("about.html", title="About")
 
-@main.route("/email_confirm", methods=['POST'])
-def email_confirm():
-	email_data = request.form["email"]
-	name_data = request.form["name"]
+@main.route('/handle_subscription', methods=['POST'])
+def handle_subscription():
+	email_address = request.form['email']
 
-	user = SubscribedUser(name=name_data, email=email_data)
-	db.session.add(user)
-	db.session.commit()
-	send_confirmation_email(name=name_data, email=email_data)
-	return ""
+	#check if there are any emails within our database matching the email that the user entered
+	subscribed_user = SubscribedUser.query.filter_by(email=email_address).first()
+	if subscribed_user: 
+		flash("You have already subscribed!")
+	else: #new subscriber
+		user = SubscribedUser(email=email_address)
+		db.session.add(user)
+		db.session.commit()
+		send_confirmation_email(email=email_address)
+	return redirect(url_for("main.home"))
 
 @main.route("/send_subscribers_email", methods=["GET", "POST"])
 @login_required

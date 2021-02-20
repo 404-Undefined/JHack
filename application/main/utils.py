@@ -4,13 +4,13 @@ from application import mail
 from flask import current_app
 import threading
 
-def send_confirmation_email(name, email):
+def send_confirmation_email(email):
 	msg = Message(
 		"JHack 2021: Subscription Confirmation", 
 		sender=os.getenv("MAIL_USERNAME"), 
 		recipients=[email],
 		body = f"""
-		Congratulations {name},
+		Congratulations,
 
 		You have successfully subscribed to receive emails from JHack 2021
 		"""
