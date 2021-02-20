@@ -1,0 +1,29 @@
+/* homepage */
+.title{
+    margin: 1px;
+}
+
+.header-tag{
+    background: url('../static/assets/img/ba.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.subtitle{
+    font-size: 30px;
+    margin: 10px;
+    font-weight: 900;
+}
+
+.prize-list{
+    text-align: center;
+    list-style: none
+}
+
+/* anouncement */
+.anouncement{
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    text-align: center;
+}
