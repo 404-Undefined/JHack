@@ -31,3 +31,17 @@
     padding: 10px;
     text-align: center;
 }
+
+/* Form pages */
+
+.form-content{
+    padding: 100px;
+    margin: 200px;
+    overflow: hidden;
+    width: 100%;
+
+}
+.form-set{
+    padding: 100px;
+    margin: 100px;
+}
