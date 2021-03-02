@@ -45,3 +45,19 @@
     padding: 100px;
     margin: 100px;
 }
+/* Sponsor Page */
+.title{
+    font-size: 100px;
+}
+
+
+  .nav {
+    margin: 0 auto;
+    padding: 0;
+    width: 75%;
+}
+
+.navbar-fixed-top.scrolled {
+  background-color: black !important;
+  transition: background-color 200ms linear;
+}
