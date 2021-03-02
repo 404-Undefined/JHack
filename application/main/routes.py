@@ -19,6 +19,10 @@ def home():
 def about():
     return render_template("about.html", title="About")
 
+@main.route('/sponsor')
+def sponsor():
+    return render_template("sponsor.html", title="Sponsor")
+
 @main.route('/handle_subscription', methods=['POST'])
 def handle_subscription():
 	email_address = request.form['email']
