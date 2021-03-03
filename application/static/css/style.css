@@ -51,13 +51,9 @@
 }
 
 
-  .nav {
-    margin: 0 auto;
-    padding: 0;
-    width: 75%;
-}
+@media (max-width: 640px) {
+    nav .navbar {
+        background: #000 !important; 
 
-.navbar-fixed-top.scrolled {
-  background-color: black !important;
-  transition: background-color 200ms linear;
+    }
 }
