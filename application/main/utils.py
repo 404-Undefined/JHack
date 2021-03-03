@@ -1,26 +1,40 @@
 import os
-from flask_mail import Message
-from application import mail
 from flask import current_app
 import threading
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 def send_confirmation_email(email):
-	msg = Message(
-		"JHack 2021: Subscription Confirmation", 
-		sender=os.getenv("MAIL_USERNAME"), 
-		recipients=[email],
-		body = f"""
+	message = Mail(
+    	from_email=os.getenv("MAIL_USERNAME"),
+    	to_emails=(email),
+    	subject="JHack 2021: Subscription Confirmation",
+    	html_content=f"""
 		Congratulations,
 
 		You have successfully subscribed to receive emails from JHack 2021
 		"""
-		)
-	mail.send(msg)
+    	)
+	try:
+	    sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+	    response = sg.send(message)
+	    print(response.status_code)
+	    print(response.body)
+	    print(response.headers)
+	except Exception as e:
+		print(e.body)
 
 def send_email(app, subject, recipient, content):
 	with app.app_context():
-		msg = Message(subject, sender=os.getenv("MAIL_USERNAME"), recipients=[recipient], html=content)
-		mail.send(msg)
+		message = Mail(from_email=os.getenv("MAIL_USERNAME"), to_emails=(recipient), subject=subject, html_content=content)
+		try:
+		    sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+		    response = sg.send(message)
+		    print(response.status_code)
+		    print(response.body)
+		    print(response.headers)
+		except Exception as e:
+			print(e.body)
 
 def send_everyone_email(subject, recipients, content):
 	threads = []
@@ -33,5 +47,12 @@ def send_everyone_email(subject, recipients, content):
 		thread.join()
 
 def send_test_email(subject, content): #send a test email to myself
-	msg = Message(subject=subject, sender=os.getenv("MAIL_USERNAME"), recipients=[os.getenv("MAIL_USERNAME")], html=content)
-	mail.send(msg)
+	message = Mail(from_email=os.getenv("MAIL_USERNAME"), to_emails=os.getenv("MAIL_USERNAME"), subject=subject, html_content=content)
+	try:
+	    sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+	    response = sg.send(message)
+	    print(response.status_code)
+	    print(response.body)
+	    print(response.headers)
+	except Exception as e:
+		print(e.body)

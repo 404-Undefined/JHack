@@ -23,7 +23,7 @@ def about():
 def sponsor():
     return render_template("sponsor.html", title="Sponsor")
 
-@main.route('/handle_subscription', methods=['POST'])
+@main.route('/handle_subscription', methods=["GET", "POST"])
 def handle_subscription():
 	email_address = request.form['email']
 
