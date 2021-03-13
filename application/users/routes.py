@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from application import bcrypt
 from application.database import db
@@ -105,6 +105,16 @@ def reset_token(token):
 
 @users.route("/portal/<username>")
 def portal(username):
-    page = request.args.get("page", 1, type=int) #site will throw ValueError if anything other than integer passed as page number. Default page of 1.
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=4) #4 posts per page in descending order of date
-    return render_template("portal.html", posts=posts)
+	if current_user.username != username:
+		abort(403)
+
+	page = request.args.get("page", 1, type=int) #site will throw ValueError if anything other than integer passed as page number. Default page of 1.
+	posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=4) #4 posts per page in descending order of date
+	return render_template("portal.html", posts=posts)
+
+@users.route("/submission/<username>")
+def submission(username):
+	if current_user.username != username:
+		abort(403)
+
+	return render_template("submission.html")
