@@ -42,10 +42,9 @@ class Post(db.Model):
 	title = db.Column(db.String(100), nullable=False)
 	date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 	content = db.Column(db.Text, nullable=False)
-	draft = db.Column(db.Integer)
 
 	def __repr__(self):
-		return f"Post({self.title}, {self.date_posted} Draft: {self.draft} {self.content})"
+		return f"Post({self.title}, {self.date_posted} {self.content})"
 
 class SubscribedUser(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

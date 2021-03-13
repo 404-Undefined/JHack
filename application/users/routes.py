@@ -103,21 +103,8 @@ def reset_token(token):
 		return redirect(url_for("users.login"))
 	return render_template("reset_password.html", title="Reset Password", form=form)
 
-@users.route('/user/<string:username>/posts')
-def user_posts(username):
+@users.route("/portal/<username>")
+def portal(username):
     page = request.args.get("page", 1, type=int) #site will throw ValueError if anything other than integer passed as page number. Default page of 1.
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user, draft=0)\
-    .order_by(Post.date_posted.desc())\
-    .paginate(page=page, per_page=5) #5 posts per page in descending order of date
-    return render_template("user_posts.html", posts=posts, user=user)
-
-
-@users.route('/user/<string:username>/posts/draft')
-def user_drafts(username):
-    page = request.args.get("page", 1, type=int) #site will throw ValueError if anything other than integer passed as page number. Default page of 1.
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user, draft=1)\
-    .order_by(Post.date_posted.desc())\
-    .paginate(page=page, per_page=5) #5 posts per page in descending order of date
-    return render_template("user_drafts.html", posts=posts, user=user)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=4) #4 posts per page in descending order of date
+    return render_template("portal.html", posts=posts)

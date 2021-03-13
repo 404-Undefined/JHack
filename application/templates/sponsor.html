@@ -1,155 +1,93 @@
 {% extends "base.html" %} {% block content %}
-<style>
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 5px;
-    text-align: left;    
-  }
-  #customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #ddd;}
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-
-}
-</style>
 <header
-  class="text-center text-white masthead" style="background-color: black; height: 30vh"
->
-<!--   style="
-    background: url('https://images.unsplash.com/photo-1483401757487-2ced3fa77952?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80') no-repeat center
+  class="text-center text-white masthead"
+  style="
+    background: url('https://images.unsplash.com/photo-1612831661881-dd08451593ae?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1225&q=80') no-repeat center
       center;
     background-size: cover;
-    height: 50vh;
-  " -->
+  "
+>
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto">
         <h1 class="title">
-          User Portal
+          Support our Hackathon
         </h1>
         <br>
-        <button class="btn btn-primary btn-sm" style="font-size: 20px; padding: 10px;">
-          Submit Your Project
-        </button>
+        <h4 class="mb-5 subtitle" style="font-weight: lighter;">
+          Contact: jhack@nagoyais.net
+        </h4>
       </div>
     </div>
     </div>
   </div>
 </header>
-<section class="showcase">
-  <div class="container-fluid p-0">
-    <div class="row no-gutters">
-      <div class="col-lg-6 order-lg-2 showcase-img" style="padding: 50px">
-        <h2 style="text-align: center;">Anouncement</h2>
-
-
-        
-        <!-- Loop Announcement -->
-        <div style="border: 3px solid black; border-style: none none none solid; padding: 10px; margin-top: 10px; background-color: #e8fcfc">
-          <h5>Schedule</h5>
-          <h7>January 1st 2021 19:00</h7>
-          <p style="padding-top: 10px;">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+<section class="text-center bg-light features-icons">
+  <div class="container">
+    <div class="row">
+            <div class="col-lg-4">
+        <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+          <h3>Encourage Innovation</h3>
+          <p class="lead mb-0">
+            Supporting our event creates a richer experience for our participants. By becoming a guest speaker or providing prizes to recognise the most innovative projects, sponsors form the backbone of our Hackathon.
           </p>
         </div>
-        <!-- ################# -->
-
-
       </div>
-      <div class="col-lg-6 order-lg-1 showcase-img" style="padding: 50px">
-        <h2 style="text-align: center;">Schedule</h2>
-        <table style="width:100%" id="customers">
-          <tr>
-            <th>Date</th>
-            <td>Time</td>
-            <td>Activity</td>
-            <td>Meet Link</td>
-          </tr>
-          <tr>
-            <th rowspan="5">Day 1</th>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-          <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-          <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-                    <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-                    <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-          <tr>
-            <th rowspan="5">Day 2</th>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-          <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-                    <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-                    <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-                    <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-          <tr>
-            <th rowspan="5">Day 3</th>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-          <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-                    <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-                    <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-                    <tr>
-            <td>9:00 - 10:00</td>
-            <td>workshop</td>
-            <td><a href="#">link</a></td>
-          </tr>
-        </table>
+      <div class="col-lg-4">
+        <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+          <h3>The Interaction</h3>
+          <p class="lead mb-0">
+            Supporting our Hackathon also means that you will be able to interact with prominent students in the field of STEM across the Asian Pacific Region. This allows you to build invaluable connections with the next generation.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+
+          <h3>Brand Exposure</h3>
+          <p class="lead mb-0">
+            We will attach your logo and business information in our website and host workshops on our individual sponsors. Your brand will gain international recgnition amoung our diverse participants.
+          </p>
+          <div class="mb-0 lead prize-list">
+          </div>
+        </div>
+      </div>
+
+  </div>
+</section>
+<section class="showcase">
+  <div class="container-fluid p-0">
+    <!-- <div class="row no-gutters">
+
+      <div class="col-lg-12 my-auto showcase-text">
+        <h3> Leaders in the STEM Industry</h3>
+        <p class="lead mb-0">Sponsors to hackathons get recognition as significant contributors to the STEM Industry. Hackathons work on building innovation, entrepreneurship, and technical skills in their participants, giving them the tools they need to propel the industry forward. This involvement provides the opportunity to participate in the process of developing an innovative and entrepreneurial generation of students!</p>
+        <br>
+        <br>
+        <h3>Interacting with world-class students</h3>
+        <p class="lead mb-0">As both nation-wide and worldwide events, hackathons typically have the advantage of local, national, and global brand recognition. This gives sponsors an opportunity to capitalize on the buzz and ride the wave. But it’s not just about the event; sponsoring a hackathon makes you partners. This allows hackathons to go a step further and advertise the who sponsored them, further spreading the brand. </p>
+        <br>
+      </div>
+    </div> -->
+    <div class="row no-gutters">
+      <div
+        class="col-lg-6 text-white order-lg-2 showcase-img"
+        style="background-image: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80')"
+      >
+        <span></span>
+      </div>
+      <div class="col-lg-6 my-auto order-lg-1 showcase-text">
+        <h2>How you can support us</h2>
+        <p>      
+          <ul class="mb-0 lead">
+            <li>Help us by providing prizes to our top participants. <a href="mailto:jhack@nagoyais.net?subject=JHack-Prizes&body=I want to provide prizes!%0D%0A %0D%0ALastName: (Fill here)%0D%0AFirstname: (Fill here)%0D%0ACompany Name: (Fill here)%0D%0A">Click here. </a> </li>
+            <li>Help us by becoming a guest speaker. <a href="mailto:jhack@nagoyais.net?subject=JHack-Guest-Speaker&body=I want to be a guest speaker!%0D%0A %0D%0ALastName: (Fill here)%0D%0AFirstname: (Fill here)%0D%0ACompany Name: (Fill here)%0D%0A">Click here. </a></li>
+            <li>Help us by making a donation. <a href="mailto:jhack@nagoyais.net?subject=JHack-Donation&body=I want to donate!%0D%0A %0D%0ALastName: (Fill here)%0D%0AFirstname: (Fill here)%0D%0ACompany Name: (Fill here)%0D%0A">Click here. </a></li>
+          </ul>
+          
+        </p>
+        Click the corresponding links to send us an email. We will reply you with further information and detail. Thank you so much!
       </div>
     </div>
   </div>

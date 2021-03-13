@@ -10,10 +10,7 @@ main = Blueprint("main", __name__)
 @main.route('/')
 @main.route('/home')
 def home():
-	page = request.args.get("page", 1, type=int)
-	posts = Post.query.filter_by(draft=0).order_by(Post.date_posted.desc()).paginate(page=page, per_page=9)
-
-	return render_template("home.html", posts=posts)
+	return render_template("home.html")
 
 @main.route('/about')
 def about():
@@ -38,8 +35,14 @@ def handle_subscription():
 		send_confirmation_email(email=email_address)
 	return redirect(url_for("main.home"))
 
-@main.route("/send_subscribers_email", methods=["GET", "POST"])
+@main.route("/create_post")
 @login_required
+def create_post():
+	if current_user.role != "Admin":
+		abort(403)
+	return render_template("create_post.html")
+
+@main.route("/send_subscribers_email", methods=["GET", "POST"])
 def send_subscribers_email():
 	if current_user.role != "Admin":
 		abort(403)

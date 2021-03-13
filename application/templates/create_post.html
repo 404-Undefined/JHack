@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<form action="{{ url_for('posts.handle_create_post') }}" method="post">
+		<input name="title" placeholder="Title"/>
+		<textarea name="content" placeholder="Content"></textarea>
+
+		<button type="submit">Post</button>
+	</form>
+{% endblock content %} <!-- the name of the block "content" in endblock is optonal -->
