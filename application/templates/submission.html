@@ -1,0 +1,128 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  .main {
+    background: url("https://jhack-hackathon.s3-ap-northeast-1.amazonaws.com/static/assets/images/background-0.jpg")
+      no-repeat center center;
+    background-size: cover;
+    padding-top: 20px;
+  }
+  h1 {
+    position: absolute;
+    margin: 0;
+    font-size: 32px;
+    color: #fff;
+    z-index: 2;
+  }
+  h2 {
+    font-weight: 400;
+  }
+  .testbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    padding: 20px;
+    padding-bottom: 80px;
+  }
+  form {
+    width: 60%;
+    padding: 20px;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 0 20px 0 #095484;
+  }
+  .banner {
+    position: relative;
+    height: 210px;
+    background-color: black;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .banner::after {
+    content: "";
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  input,
+  select {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  input {
+    width: calc(100% - 10px);
+    padding: 5px;
+  }
+  select {
+    width: 100%;
+    padding: 7px 0;
+    background: transparent;
+  }
+
+  .item {
+    position: relative;
+    margin: 10px 0;
+  }
+  .item i {
+    right: 2%;
+    top: 30px;
+    z-index: 1;
+  }
+  .questiont-text {
+    font-weight: bold;
+    font-size: 20px;
+  }
+</style>
+
+<body class="main">
+  <div class="testbox">
+    <form action="/">
+      <h2>Team Information</h2>
+      <div class="item">
+        <p>Team Name</p>
+        <div class="item">
+          <input type="text" name="name" placeholder="" />
+        </div>
+      </div>
+      <div class="item">
+        <p>School Name</p>
+        <input type="text" name="name" />
+      </div>
+      <div class="item">
+        <p>Github repository URL (optional)</p>
+        <input type="text" name="name" />
+      </div>
+      <div class="item">
+        <p>Video URL (optional)</p>
+        <input type="text" name="name" />
+      </div>
+      <h3>Project</h3>
+      <p>
+        You can attach images and utilize the space below to show off your
+        project! We have prepared four prompts but you can freely write about
+        your project.
+      </p>
+      <div class="item">
+        <textarea id="froala-editor">
+          <p class="questiont-text">What does your project do?</p>
+          <p class="questiont-text">
+            What tools/programming languages did you use?
+          </p>
+          <p class="questiont-text">Challenges that you faced</p>
+          <p class="questiont-text">
+            Optional improvements/extensions to your project
+          </p>
+        </textarea>
+      </div>
+      <div class="btn-block">
+        <button class="btn-primary" type="submit" href="/">Send</button>
+      </div>
+    </form>
+  </div>
+</body>
+{% endblock content %}
