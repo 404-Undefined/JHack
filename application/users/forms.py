@@ -62,3 +62,15 @@ class ResetPasswordForm(FlaskForm):
 	password = PasswordField("Password", validators=[DataRequired()])
 	confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
 	submit = SubmitField("Reset Password")
+
+class SubmissionForm(FlaskForm):
+	team_name = StringField("Team Name", validators=[DataRequired()])
+	school_name = StringField("School Name", validators=[DataRequired()])
+	github = StringField("GitHub Repo")
+	description = TextAreaField("Description", default="""
+	<p class="questiont-text">What does your project do?</p>
+	<p class="questiont-text">What tools/programming languages did you use?</p>
+	<p class="questiont-text">Challenges that you faced</p>
+	<p class="questiont-text">Optional improvements/extensions to your project</p>""")
+	video = StringField("Video URL")
+	submit = SubmitField("Submit")

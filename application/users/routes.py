@@ -2,9 +2,9 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint,
 from flask_login import login_user, current_user, logout_user, login_required
 from application import bcrypt
 from application.database import db
-from application.models import User, Post
+from application.models import User, Post, Submission
 from application.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
-                                   RequestResetForm, ResetPasswordForm)
+                                   RequestResetForm, ResetPasswordForm, SubmissionForm)
 from application.users.utils import save_picture, send_reset_email
 import os
 
@@ -68,7 +68,7 @@ def account():
 		form.email.data = current_user.email
 		form.bio.data = current_user.bio
 		form.gender.data = current_user.gender
-	return render_template("account.html", title="Account", image_file=current_user.image_file, form=form)
+	return render_template("account.html", title="Account", form=form)
 
 @users.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
@@ -104,17 +104,43 @@ def reset_token(token):
 	return render_template("reset_password.html", title="Reset Password", form=form)
 
 @users.route("/portal/<username>")
+@login_required
 def portal(username):
 	if current_user.username != username:
 		abort(403)
 
 	page = request.args.get("page", 1, type=int) #site will throw ValueError if anything other than integer passed as page number. Default page of 1.
 	posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=4) #4 posts per page in descending order of date
-	return render_template("portal.html", posts=posts)
+	return render_template("portal.html", posts=posts, user=current_user)
 
-@users.route("/submission/<username>")
+@users.route("/submission/<username>", methods=["GET", "POST"])
+@login_required
 def submission(username):
 	if current_user.username != username:
 		abort(403)
 
-	return render_template("submission.html")
+	submission = Submission.query.filter_by(creator=current_user).first()
+
+	form = SubmissionForm()
+	if form.validate_on_submit():
+		if submission is not None:
+			submission.github = form.github.data
+			submission.video = form.video.data
+			submission.team_name = form.team_name.data
+			submission.school_name = form.school_name.data
+			submission.description = form.description.data
+		else: # create new submission
+			new_submission = Submission(user_id=current_user.id, github=form.github.data, video=form.video.data, team_name=form.team_name.data,\
+				school_name=form.school_name.data, description=form.description.data)
+			db.session.add(new_submission)
+
+		db.session.commit()
+		return redirect(url_for("users.portal", username=current_user.username))
+	elif request.method == "GET":
+		if submission is not None: # if the user has already started a submission, then pre-fill 
+			form.github.data = submission.github
+			form.video.data = submission.video
+			form.school_name.data = submission.school_name
+			form.team_name.data = submission.team_name
+			form.description.data = submission.description
+	return render_template("submission.html", form=form, user=current_user)

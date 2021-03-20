@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
 	bio = db.Column(db.String(400))
 	gender = db.Column(db.String(20))
 	role = db.Column(db.String(10), default="Member")
+	submission = db.relationship("Submission", backref="creator", lazy=True)
 
 	def get_reset_token(self, expires_seconds=1800):
 		serializer_obj = Serializer(current_app.config["SECRET_KEY"], expires_seconds)
@@ -50,10 +51,21 @@ class SubscribedUser(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	email = db.Column(db.String(120), unique=True, nullable=False)
 
+class Submission(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False) #user.id = primary_key of User
+	team_name = db.Column(db.String(100), nullable=False)
+	school_name = db.Column(db.String(100), nullable=False)
+	video = db.Column(db.String(100), nullable=True)
+	github = db.Column(db.String(100), nullable=True)
+	description = db.Column(db.String(), nullable=True)
+
+
 class MyModelView(ModelView):
 	def is_accessible(self):
-		return current_user.is_authenticated and current_user.role == "Admin"
+		return current_user.is_authenticated and current_user.role == "Admin" 
 
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Post, db.session))
 admin.add_view(MyModelView(SubscribedUser, db.session))
+admin.add_view(MyModelView(Submission, db. session))

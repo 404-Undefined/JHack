@@ -81,46 +81,90 @@
 
 <body class="main">
   <div class="testbox">
-    <form action="/">
+    <form method="POST" action="" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
       <h2>Team Information</h2>
+
       <div class="item">
         <p>Team Name</p>
         <div class="item">
-          <input type="text" name="name" placeholder="" />
+        {% if form.team_name.errors %}
+          {{form.team_name }}
+            <div>
+              {% for error in form.team_name.errors %}
+              <span> {{error}} </span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.team_name }}
+        {% endif %}
         </div>
       </div>
+
       <div class="item">
         <p>School Name</p>
-        <input type="text" name="name" />
+        {% if form.school_name.errors %}
+          {{form.school_name }}
+            <div>
+              {% for error in form.school_name.errors %}
+              <span> {{error}} </span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.school_name }}
+        {% endif %}
       </div>
+
       <div class="item">
-        <p>Github repository URL (optional)</p>
-        <input type="text" name="name" />
+        <p>Github Repository URL (optional)</p>
+        {% if form.github.errors %}
+          {{form.github }}
+            <div class="invalid-feedback">
+              {% for error in form.github.errors %}
+              <span> {{error}} </span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.github }}
+        {% endif %}
       </div>
+
       <div class="item">
         <p>Video URL (optional)</p>
-        <input type="text" name="name" />
+        {% if form.video.errors %}
+          {{form.video }}
+            <div>
+              {% for error in form.video.errors %}
+              <span> {{error}} </span>
+              {% endfor %}
+            </div>
+        {% else %}
+          {{ form.video }}
+        {% endif %}
       </div>
+
       <h3>Project</h3>
       <p>
         You can attach images and utilize the space below to show off your
         project! We have prepared four prompts but you can freely write about
         your project.
       </p>
+
       <div class="item">
-        <textarea id="froala-editor">
-          <p class="questiont-text">What does your project do?</p>
-          <p class="questiont-text">
-            What tools/programming languages did you use?
-          </p>
-          <p class="questiont-text">Challenges that you faced</p>
-          <p class="questiont-text">
-            Optional improvements/extensions to your project
-          </p>
-        </textarea>
+        {% if form.description.errors %}
+          {{form.description }}
+            <div class="invalid-feedback">
+              {% for error in form.description.errors %}
+              <span> {{error}} </span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.description }}
+          {% endif %}
       </div>
+
       <div class="btn-block">
-        <button class="btn-primary" type="submit" href="/">Send</button>
+        {{ form.submit }}
       </div>
     </form>
   </div>
