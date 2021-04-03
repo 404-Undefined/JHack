@@ -139,7 +139,7 @@
               {% endfor %}
             </div>
         {% else %}
-          {{ form.video }}
+          {{form.video }}
         {% endif %}
       </div>
 
@@ -152,15 +152,15 @@
 
       <div class="item">
         {% if form.description.errors %}
-          {{form.description }}
+          {{form.description(id="editor2") }}
             <div class="invalid-feedback">
               {% for error in form.description.errors %}
               <span> {{error}} </span>
               {% endfor %}
             </div>
-          {% else %}
-            {{ form.description }}
-          {% endif %}
+        {% else %}
+          {{form.description(id="editor2") }}
+        {% endif %}
       </div>
 
       <div class="btn-block">

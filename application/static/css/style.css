@@ -4,3 +4,44 @@
   position: absolute;
   top: -99999999px;
 } */
+
+
+/* homepage */
+.theme-bullet{
+  list-style-type: none;
+}
+.theme-subtitle{
+  font-size: 25px;
+}
+
+/* Portal */
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;    
+}
+#customers tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+  background-color: #ddd;
+}
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.submission-button{
+  color: white;
+  
+}
+.submission-button:hover{
+  color: white;
+  text-decoration: none;
+}
+
+/* Submission */
