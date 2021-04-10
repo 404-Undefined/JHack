@@ -57,21 +57,21 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link item white-text" href="{{url_for('users.logout')}}"
+                >Logout</a
+              >
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link item white-text" href="{{url_for('users.register')}}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link item white-text"href="{{url_for('users.login')}}">Log In</a>
+            </li>
+          {% endif %}
 
-          <!-- <li class="nav-item">
-            <a
-              class="nav-link item"
-              style="color: white"
-              href="{{url_for('main.sponsor')}}"
-              ><strong>Sponsor</strong></a
-            >
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link item white-text" href="{{url_for('users.register')}}">Register</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link item white-text"href="{{url_for('users.login')}}">Log In</a>
-          </li>
           <li class="nav-item">
             <a
               class="nav-link item white-text"
@@ -80,18 +80,16 @@
               ><strong>Home</strong></a
             >
           </li>
+          <li class="nav-item">
+            <a
+              class="nav-link item white-text"
+              href="{{url_for('main.sponsor')}}"
+              ><strong>Sponsor</strong></a
+            >
+          </li>
         </ul>
       </div>
     </nav>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MPM9D5HLH9"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-MPM9D5HLH9');
-    </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ELYZEMQKW"></script>
     <script>
@@ -104,16 +102,6 @@
   </head>
 
   <body>
-    <!-- comment the nav bar for now we will use it later for now no nav bar-->
-    <!-- <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
-		<div class="container">
-			<button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
-			<div class="collapse navbar-collapse" id="navcol-1">
-			<a class="btn btn-primary ml-auto" role="button" href="#">Sign Up</a>
-			<a class="btn btn-primary ml-2" role="button" href="../templates/sponsor.html">Sign Up</a>
-			</div>
-		</div>
-	</nav> -->
     {% block content %}{% endblock %}
     <footer class="text-center text-white" style="background-color: #f1f1f1">
       <!-- Grid container -->
@@ -121,14 +109,14 @@
         <!-- Section: Social media -->
         <section class="mb-4">
 
-          <!-- Google -->
+          <!-- Google Mail -->
           <a
             class="btn btn-link btn-floating btn-lg text-dark m-1"
-            href="mailto: 22steveno@nagoyais.net"
+            href="mailto: jhack@nagoyais.net"
             role="button"
             data-mdb-ripple-color="dark"
-            ><i class="fab fa-google"></i
-          ></a>
+            ><i class="fas fa-envelope"></i>
+          </a>
 
           <!-- Instagram -->
           <a
@@ -171,7 +159,7 @@
         }
       });
     });
-    // froalaeditore textarea
+    // WYSIWYG editor
     CKEDITOR.replace( 'editor1' );
     CKEDITOR.replace( 'editor2' );
   </script>
