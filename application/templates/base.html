@@ -54,7 +54,6 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           {% if current_user.is_authenticated %}
@@ -152,7 +151,7 @@
   <script>
     $(document).ready(function () {
       $(window).scroll(function () {
-        if ($(window).scrollTop() >= 50) {
+        if ($(window).scrollTop() >= 20) {
           $(".navbar").css("background-color", "#222");
         } else {
           $(".navbar").css("background-color", "transparent");
@@ -162,6 +161,38 @@
     // WYSIWYG editor
     CKEDITOR.replace( 'editor1' );
     CKEDITOR.replace( 'editor2' );
+
+    function add(){
+      if($('#total_chq').val() < 4){
+        var index = parseInt($('#total_chq').val())+1;
+        $('#member_' + index).show();
+        $('#total_chq').val(index)
+      }
+    }
+    function remove(){
+      var last_no = $('#total_chq').val();
+      if(last_no>1){
+        $('#member_'+last_no).hide();
+        $('#total_chq').val(last_no-1);
+      }
+    }
+
+    // function add(){
+    //   if($('#total_chq').val() < 4){
+    //     var new_chq_no = parseInt($('#total_chq').val())+1;
+    //     var new_input='<div class="form-field" id="input-container' + new_chq_no + '""><div class="form-group"><input type="text" name="firstname' + new_chq_no + '" class="form-control"></div><div class="form-group"><input type="text" name="lastname ' + new_chq_no + '" class="form-control"></div></div>'
+    //     $('#member_container').append(new_input);
+    //     $('#total_chq').val(new_chq_no)
+    //   }
+    // }
+    // function remove(){
+    //   var last_chq_no = $('#total_chq').val();
+    //   if(last_chq_no>1){
+    //     $('#input-container'+last_chq_no).remove();
+    //     $('#total_chq').val(last_chq_no-1);
+    //   }
+    // }
+
   </script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
