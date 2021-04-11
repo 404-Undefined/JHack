@@ -163,6 +163,7 @@
     CKEDITOR.replace( 'editor2' );
 
     function add(){
+      event.preventDefault()
       if($('#total_chq').val() < 4){
         var index = parseInt($('#total_chq').val())+1;
         $('#member_' + index).show();
@@ -170,6 +171,7 @@
       }
     }
     function remove(){
+      event.preventDefault()
       var last_no = $('#total_chq').val();
       if(last_no>1){
         $('#member_'+last_no).hide();
