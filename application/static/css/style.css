@@ -70,6 +70,7 @@ th, td {
 }
 .break-line{
   border-width: 3px;
+  padding: 10px;
 }
 .guide-container{
   margin: 20px;
@@ -104,6 +105,10 @@ th, td {
   width: 50%; 
   display: block; 
   margin: 0 auto;
+}
+
+.button-block{
+  padding-bottom: 20px;
 }
 /* Submission */
 .add-bt{

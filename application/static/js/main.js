@@ -95,22 +95,4 @@ function draw() {
     }
   }
   endShape();
-
-  //println(x,y,z);
 }
-
-// function add(){
-//   if($('#total_chq').val() < 4){
-//     var new_chq_no = parseInt($('#total_chq').val())+1;
-//     var new_input='<div class="form-field" id="input-container' + new_chq_no + '""><div class="form-group"><input type="text" name="firstname' + new_chq_no + '" class="form-control"></div><div class="form-group"><input type="text" name="lastname ' + new_chq_no + '" class="form-control"></div></div>'
-//     $('#member_container').append(new_input);
-//     $('#total_chq').val(new_chq_no)
-//   }
-// }
-// function remove(){
-//   var last_chq_no = $('#total_chq').val();
-//   if(last_chq_no>1){
-//     $('#input-container'+last_chq_no).remove();
-//     $('#total_chq').val(last_chq_no-1);
-//   }
-// }
