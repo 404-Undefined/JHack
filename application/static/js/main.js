@@ -36,6 +36,8 @@ let a = 10;
 let b = 28;
 let c = 8.0 / 3.0;
 
+let n = 0;
+
 let angleX = 0;
 let angleY = 0;
 let angleZ = 0;
@@ -54,15 +56,16 @@ function setup() {
 
 function draw() {
   background(0);
-
-  let dt = 0.01;
-  let dx = a * (y - x) * dt;
-  let dy = (x * (b - z) - y) * dt;
-  let dz = (x * y - c * z) * dt;
-  x = x + dx;
-  y = y + dy;
-  z = z + dz;
-
+  n ++;
+  if(n < 10000){
+    let dt = 0.01;
+    let dx = a * (y - x) * dt;
+    let dy = (x * (b - z) - y) * dt;
+    let dz = (x * y - c * z) * dt;
+    x = x + dx;
+    y = y + dy;
+    z = z + dz;
+  }
   points.push(new p5.Vector(x, y, z));
 
   translate(0, 0, 200);
