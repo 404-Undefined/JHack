@@ -121,7 +121,10 @@ def portal(username):
 
 @users.route('/handle_code', methods=["GET", "POST"])
 def handle_code():
-	if request.form["submit_button"] == "join": # join an existing team
+	user = User.query.filter_by(username=current_user.username).first() #get the current user
+	if user.submission: # user is already in a team
+		flash("You are already in a team!", "warning")
+	elif request.form["submit_button"] == "join": # join an existing team
 		team_code = request.form['code_input']
 		team_submission = Submission.query.filter_by(code=int(team_code)).first()
 
@@ -130,13 +133,11 @@ def handle_code():
 		elif len(team_submission.team_member) >= 4:
 			flash("This team is full! Create a new one?", "warning")
 		else:
-			user = User.query.filter_by(username=current_user.username).first() #get the current user
 			team_submission.team_member.append(user)
 
 			db.session.commit()
 			flash(f"You have been added to the team {team_submission.team_name}!", "success")
 	elif request.form["submit_button"] == "create": # create a new team
-		user = User.query.filter_by(username=current_user.username).first() #get the current user
 		existing_codes = [submission.code for submission in Submission.query.all()] #list of all existing codes
 		new_code = random.choice([x for x in range(100000, 1000000) if x not in existing_codes]) #generate a new 6 digit code
 
