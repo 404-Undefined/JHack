@@ -18,7 +18,16 @@
   font-weight: 800;
   font-size: 13px;
 }
-
+.sponsor-title{
+  margin: 20px;
+}
+.sponsor-container{
+  display:block; 
+  margin:auto;
+}
+.sponsor-image{
+  width: 60vw;
+}
 /* Portal */
 
 table, th, td {
@@ -69,11 +78,34 @@ th, td {
   width: 100%;
   height: 50vh;
 }
+.portal_text{
+  right: 0;
+  text-align: right; 
+  position: absolute;
+  bottom: 0; 
+  margin: 20px;
+  color: rgba(231, 231, 231, 0.8);
+
+}
+
+.text-break{
+  text-align: center; margin-bottom: 10px;  width: 100%; 
+  text-align: center; 
+  border-bottom: 1px solid #000; 
+  line-height: 0.1em;
+  margin: 20px 0 20px;
+}
+
+#text-span{
+  background:#fff; 
+  padding:0 10px; 
+}
+#text-heading{
+  width: 50%; 
+  display: block; 
+  margin: 0 auto;
+}
 /* Submission */
 .add-bt{
   color: #0275d8;
-}
-.add-bt:hover{
-
-
 }

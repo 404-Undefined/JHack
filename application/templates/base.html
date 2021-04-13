@@ -26,6 +26,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <link rel="stylesheet" href="../static/fonts/font-awesome.min.css" />
     <link rel="stylesheet" href="../static/fonts/simple-line-icons.min.css" />
@@ -148,54 +149,8 @@
     crossorigin="anonymous"
   ></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $(window).scroll(function () {
-        if ($(window).scrollTop() >= 20) {
-          $(".navbar").css("background-color", "#222");
-        } else {
-          $(".navbar").css("background-color", "transparent");
-        }
-      });
-    });
-    // WYSIWYG editor
-    CKEDITOR.replace( 'editor1' );
-    CKEDITOR.replace( 'editor2' );
-
-    function add(){
-      event.preventDefault()
-      if($('#total_chq').val() < 4){
-        var index = parseInt($('#total_chq').val())+1;
-        $('#member_' + index).show();
-        $('#total_chq').val(index)
-      }
-    }
-    function remove(){
-      event.preventDefault()
-      var last_no = $('#total_chq').val();
-      if(last_no>1){
-        $('#member_'+last_no).hide();
-        $('#total_chq').val(last_no-1);
-      }
-    }
-
-    // function add(){
-    //   if($('#total_chq').val() < 4){
-    //     var new_chq_no = parseInt($('#total_chq').val())+1;
-    //     var new_input='<div class="form-field" id="input-container' + new_chq_no + '""><div class="form-group"><input type="text" name="firstname' + new_chq_no + '" class="form-control"></div><div class="form-group"><input type="text" name="lastname ' + new_chq_no + '" class="form-control"></div></div>'
-    //     $('#member_container').append(new_input);
-    //     $('#total_chq').val(new_chq_no)
-    //   }
-    // }
-    // function remove(){
-    //   var last_chq_no = $('#total_chq').val();
-    //   if(last_chq_no>1){
-    //     $('#input-container'+last_chq_no).remove();
-    //     $('#total_chq').val(last_chq_no-1);
-    //   }
-    // }
-
-  </script>
+  <script type="text/javascript" src="../static/js/main.js"></script>
+  <!-- change to flask directory -->
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

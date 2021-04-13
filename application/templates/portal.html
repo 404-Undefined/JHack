@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <header
-  class="text-center text-white masthead" style="background-color: black; height: 50vh"
+  class="text-center text-white masthead" style="background-color: black; height: 50vh" 
 >
 <!--   style="
     background: url('https://images.unsplash.com/photo-1483401757487-2ced3fa77952?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80') no-repeat center
@@ -9,7 +9,7 @@
     background-size: cover;
     height: 50vh;
   " -->
-  <div class="overlay"></div>
+  <div class="overlay" id="portal_header"></div>
   <div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto">
@@ -20,6 +20,7 @@
         </button>
       </div>
     </div>
+    <p class="portal_text">Lorenz Attractor - a model of butterfly effect</p>
   </div>
 </header>
 
@@ -27,59 +28,103 @@
   <div class="container-fluid p-0">
     <div class="row no-gutters">
       <div class="col-lg-6 order-lg-2 showcase-img" style="padding: 50px">
-        <h2 style="text-align: center;">Announcements</h2>
+        <section>
+          <h2 style="text-align: center;">Team</h2>
+          <form action="" method="post" style="border: 0.5px solid black; border-radius: 3px;">
+            <div style="padding: 30px">
+                <input
+                  class="form-control form-control-lg"
+                  type="email"
+                  name="email"
+                  placeholder="Enter your team code"
+                  style="width: 50%;  width: 50%; display: block; margin: 0 auto 20px;"
+                />
+                <button class="btn btn-primary btn-block btn-lg" style="width: 50%; display: block; margin: 0 auto 10px; " type="submit">
+                  Join
+                </button>
+                <div style="text-align: center; margin-bottom: 10px;  width: 100%; text-align: center; border-bottom: 1px solid #000; line-height: 0.1em; margin: 20px 0 20px;">
+                  <span style="background:#fff;padding:0 10px;">OR</span>
+                </div>
+                <button class="btn btn-primary btn-block btn-lg" style="width: 50%; display: block; margin: 0 auto;" type="submit">
+                  Create team
+                </button>
+            </div>
+          </form>
+        </section>
         
+        <hr class="break-line">
+
+        <section>
+          <h2 style="text-align: center;">Announcements</h2>
         <!-- Loop Announcement -->
-        {% for post in posts.items %}
-          <div style="border: 3px solid black; border-style: none none none solid; padding: 10px; margin-top: 10px; background-color: #e8fcfc">
-            <h3>{{post.title}}</h3>
-            <p style="font-weight: bold;">{{ post.date_posted.strftime("%B %d, %Y %H:%M") }}<p>
-            {{post.content|safe}}
+          {% for post in posts.items %}
+            <div style="border: 3px solid black; border-style: none none none solid; padding: 10px; margin-top: 10px; margin-bottom: 20px; background-color: #e8fcfc">
+              <h3>{{post.title}}</h3>
+              <p style="font-weight: bold;">{{ post.date_posted.strftime("%B %d, %Y %H:%M") }}<p>
+              {{post.content|safe}}
+            </div>
+          {% endfor %}
+        </section>
+
+        <hr class="break-line">
+
+        <section>
+          <h2 style="text-align: center;">Resources</h2>
+          <div class="speaker-container">
+            Coding
+            <ul>
+              <li><a href="https://www.geeksforgeeks.org">Geek for Geek</a></li>
+              <li><a href="https://education.github.com/pack">Github Student Development Pack</a></li>
+              <li><a href="https://stackoverflow.com">Stackoverflow</a></li>
+            </ul>
           </div>
-        {% endfor %}
-        <!-- ################# -->
+        </section>
       </div>
       
       <div class="col-lg-6 order-lg-1 showcase-img" style="padding: 50px">
-        <div class="guide-container">
-          <h2 style="text-align: center;">Submission Guide</h2>
-          <p>Follow the guide below:</p>
-          <iframe class="doc-embed" src="https://docs.google.com/document/d/e/2PACX-1vRYfMd0DSRPgJuIP19-HFPGgnfLUhaxClyg2syN-x9J2Ccm7svOHvPDr5Q8Ww2ghw6PhVG1apeMDcV7/pub?embedded=true"></iframe>
-        </div>
+        <section>
+          <div class="guide-container">
+            <h2 style="text-align: center;">Submission Guide</h2>
+            <p>Follow the guide below:</p>
+            <iframe class="doc-embed" src="https://docs.google.com/document/d/e/2PACX-1vRYfMd0DSRPgJuIP19-HFPGgnfLUhaxClyg2syN-x9J2Ccm7svOHvPDr5Q8Ww2ghw6PhVG1apeMDcV7/pub?embedded=true"></iframe>
+          </div>
+        </section>
+
+        <hr class="break-line">
+
+        <section>
+          <h2 style="text-align: center;">Workshops</h2>
+          <div class="speaker-container">
+            <div class="speaker-title">Mr. Obonguta Felix</div>
+            <div>Email: obongutafelix@gmail.com</div>
+            <p>Felix is currently a doctoral student at Kyoto University majoring in civil engineering. His research interests include infrastructure asset management, transportation, urban planning and the application of data science and artificial intelligence to infrastructure monitoring. </p>
+            <div><a href="#">Meet Link</a></div>
+            <div>Time: April 28th <span class="underline">2:00pm - 3:00pm</span> (JST)</div>
+          </div>
+
+          <hr class="break-line">
+
+          <div class="speaker-container">
+            <div class="speaker-title">Mr. Roddy McNeil</div>
+            <div>Email: rd_mcn@hotmail.com</div>
+            <p>I have been coding for over 30 years across a lot of industries, have taught video game development, and am currently working with a small business that has a platform for anaesthetists and surgeons.  Fun fact: I made a VR game for PAX Australia, including a full-sized controller (or that I once played Sheep in Space for 24 hours when I was a teenager).</p>
+            <div><a href="#">Meet Link</a></div>
+            <div>Time: April 27 <span class="underline">10:30am - 11:30am</span>(JST)</div>
+          </div>
+
+          <hr class="break-line">
+
+          <div class="speaker-container">
+            <div class="speaker-title">Mr. Steve Sabat</div>
+            <div>Email: ssabat@me.com</div>
+            <p>I've been working with computer science in a professional capacity since the early 2000's. I started out as a Sysadmin and network manager at a small aircraft manufacturing plant in a little town in Wyoming, USA. I began working in schools in 2006 as a support technician and database manager. I enjoy working in schools because the IT environment is always changing and is open to innovation. I'm currently the ICT Manager at the Anglo-American School of Sofia, in Bulgaria. Fun fact about me: I used to be a ski instructor at Park City, Utah. Having worked in international schools in Europe for the past 9 years, I've been involved with data privacy, security and GDPR (General Data Protection Regulation) compliance. Many other countries outside of Europe (including Japan) are adopting data privacy laws based upon the GDPR principles.</p>
+            <div><a href="#">Meet Link</a></div>
+            <div>Time: April 26 <span class="underline">2:00pm - 3:00pm</span> (JST)</div>
+          </div>
+        </section>
         
 
-        <h2 style="text-align: center;">Workshops</h2>
-        <div class="speaker-container">
-          <div class="speaker-title">Mr. Obonguta Felix</div>
-          <div>Email: obongutafelix@gmail.com</div>
-          <p>Felix is currently a doctoral student at Kyoto University majoring in civil engineering. His research interests include infrastructure asset management, transportation, urban planning and the application of data science and artificial intelligence to infrastructure monitoring. </p>
-          
-          <div><a href="#">Meet Link</a></div>
-          <div>Time: April 28th <span class="underline">2:00pm - 3:00pm</span> (JST)</div>
-        </div>
-
-        <hr class="break-line">
-
-        <div class="speaker-container">
-          <div class="speaker-title">Mr. Roddy McNeil</div>
-          <div>Email: rd_mcn@hotmail.com</div>
-          <p></p>
-          
-          <div><a href="#">Meet Link</a></div>
-          <div>Time: TBD</div>
-        </div>
-
-        <hr class="break-line">
-
-        <div class="speaker-container">
-          <div class="speaker-title">Mr. Steve Sabat</div>
-          <div>Email: ssabat@me.com</div>
-          <p></p>
-          
-          <div><a href="#">Meet Link</a></div>
-          <div>Time: TBD</div>
-        </div>
-
+        
       </div>
     </div>
   </div>
