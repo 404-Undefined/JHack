@@ -25,7 +25,7 @@ def create_app(config_class=Config):
 	mail.init_app(app)
 	admin.init_app(app)
 	s3.init_app(app)
-	migrate.init_app(app, db)
+	migrate.init_app(app, db, render_as_batch=True)
 
 	from application.main.routes import main
 	from application.users.routes import users

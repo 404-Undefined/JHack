@@ -7,6 +7,7 @@ from application.users.forms import (RegistrationForm, LoginForm, UpdateAccountF
                                    RequestResetForm, ResetPasswordForm, SubmissionForm)
 from application.users.utils import save_picture, send_reset_email
 import os
+import random
 
 users = Blueprint("users", __name__)
 
@@ -18,7 +19,7 @@ def register():
 	form = RegistrationForm()
 	if form.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(form.password.data.encode("utf-8")).decode("utf-8")
-		user = User(username=form.username.data, email=form.email.data, password=hashed_password, bio="", gender="", role="Member") #pass in the UTF-8 hashed password, not the plain text nor binary
+		user = User(username=form.username.data, email=form.email.data, password=hashed_password, role="Member") #pass in the UTF-8 hashed password, not the plain text nor binary
 		db.session.add(user)
 		db.session.commit()
 
@@ -111,36 +112,74 @@ def portal(username):
 
 	page = request.args.get("page", 1, type=int) #site will throw ValueError if anything other than integer passed as page number. Default page of 1.
 	posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=4) #4 posts per page in descending order of date
-	return render_template("portal.html", posts=posts, user=current_user)
 
-@users.route("/submission/<username>", methods=["GET", "POST"])
+	user = User.query.filter_by(username=username).first()
+	team_names = [submission.team_name for submission in user.submission]
+
+	return render_template("portal.html", posts=posts, user=current_user, team_names=team_names)
+
+
+@users.route('/handle_code', methods=["GET", "POST"])
+def handle_code():
+	if request.form["submit_button"] == "join": # join an existing team
+		team_code = request.form['code_input']
+		team_submission = Submission.query.filter_by(code=int(team_code)).first()
+
+		if team_submission is None:
+			flash("This team does not exist yet. Create a team instead?", "warning")
+		elif len(team_submission.team_member) >= 4:
+			flash("This team is full! Create a new one?", "warning")
+		else:
+			user = User.query.filter_by(username=current_user.username).first() #get the current user
+			team_submission.team_member.append(user)
+
+			db.session.commit()
+			flash(f"You have been added to the team {team_submission.team_name}!", "success")
+	elif request.form["submit_button"] == "create": # create a new team
+		user = User.query.filter_by(username=current_user.username).first() #get the current user
+		existing_codes = [submission.code for submission in Submission.query.all()] #list of all existing codes
+		new_code = random.choice([x for x in range(100000, 1000000) if x not in existing_codes]) #generate a new 6 digit code
+
+		new_team = Submission(code=new_code, team_name=str(new_code)) #default team name = code
+		new_team.team_member.append(user) #add this user to the new team
+
+		db.session.add(new_team)
+		db.session.commit()
+
+		flash(f"You have created a new team! Share this code {new_code} with your friends now!", "success")
+	else:
+		pass # unknown
+	return redirect(url_for("users.portal", username=current_user.username))
+
+
+@users.route("/submission/<teamname>", methods=["GET", "POST"])
 @login_required
-def submission(username):
-	if current_user.username != username:
-		abort(403)
+def submission(teamname):
+	team_submission = Submission.query.filter_by(team_name=teamname).first()
 
-	submission = Submission.query.filter_by(creator=current_user).first()
+	if not team_submission: # this team does not exist
+		abort(404) #page not found error
+
+	valid_usernames = [member.username for member in team_submission.team_member]
+
+	if current_user.username not in valid_usernames: #team exists, but no permission
+		abort(403) #permission denied error
 
 	form = SubmissionForm()
+
 	if form.validate_on_submit():
-		if submission is not None:
-			submission.github = form.github.data
-			submission.video = form.video.data
-			submission.team_name = form.team_name.data
-			submission.school_name = form.school_name.data
-			submission.description = form.description.data
-		else: # create new submission
-			new_submission = Submission(user_id=current_user.id, github=form.github.data, video=form.video.data, team_name=form.team_name.data,\
-				school_name=form.school_name.data, description=form.description.data)
-			db.session.add(new_submission)
+		team_submission.github = form.github.data
+		team_submission.video = form.video.data
+		team_submission.team_name = form.team_name.data
+		team_submission.school_name = form.school_name.data
+		team_submission.description = form.description.data
 
 		db.session.commit()
 		return redirect(url_for("users.portal", username=current_user.username))
 	elif request.method == "GET":
-		if submission is not None: # if the user has already started a submission, then pre-fill 
-			form.github.data = submission.github
-			form.video.data = submission.video
-			form.school_name.data = submission.school_name
-			form.team_name.data = submission.team_name
-			form.description.data = submission.description
+		form.github.data = team_submission.github
+		form.video.data = team_submission.video
+		form.school_name.data = team_submission.school_name
+		form.team_name.data = team_submission.team_name
+		form.description.data = team_submission.description
 	return render_template("submission.html", form=form, user=current_user)

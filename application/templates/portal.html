@@ -15,9 +15,11 @@
       <div class="col-md-8 mx-auto">
         <h1 class="title">{{user.username}}'s Portal</h1>
         <br>
-        <button class="btn btn-primary btn-sm" style="font-size: 20px; padding: 10px;">
-          <a href="{{url_for('users.submission', username=user.username)}}" class="submission-button">Submit Your Project</a>
-        </button>
+        {% for team_name in team_names %}
+          <button class="btn btn-primary btn-sm" style="font-size: 20px; padding: 10px;">
+            <a href="{{url_for('users.submission', teamname=team_name)}}" class="submission-button">Submit Your Project {{team_name}}</a>
+          </button>
+        {% endfor %}
       </div>
     </div>
     <p class="portal_text">Lorenz Attractor - a model of butterfly effect</p>
@@ -30,24 +32,26 @@
       <div class="col-lg-6 order-lg-2 showcase-img" style="padding: 50px">
         <section>
           <h2 style="text-align: center;">Team</h2>
-          <form action="" method="post" style="border: 0.5px solid black; border-radius: 3px;">
+          <form action="{{ url_for('users.handle_code') }}" method="post" style="border: 0.5px solid black; border-radius: 3px;">
             <div style="padding: 30px">
                 <input
                   class="form-control form-control-lg"
-                  type="email"
-                  name="email"
+                  type="number"
+                  name="code_input"
                   placeholder="Enter your team code"
                   style="width: 50%;  width: 50%; display: block; margin: 0 auto 20px;"
                 />
                 <button class="btn btn-primary btn-block btn-lg" style="width: 50%; display: block; margin: 0 auto 10px; " type="submit">
                   Join
                 </button>
+                <input name="submit_button" value="join" type="submit"/>
                 <div style="text-align: center; margin-bottom: 10px;  width: 100%; text-align: center; border-bottom: 1px solid #000; line-height: 0.1em; margin: 20px 0 20px;">
                   <span style="background:#fff;padding:0 10px;">OR</span>
                 </div>
                 <button class="btn btn-primary btn-block btn-lg" style="width: 50%; display: block; margin: 0 auto;" type="submit">
                   Create team
                 </button>
+                <input name="submit_button" value="create" type="submit"/>
             </div>
           </form>
         </section>

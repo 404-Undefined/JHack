@@ -14,13 +14,14 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(20), unique=True, nullable=False)
+	first_name = db.Column(db.String(20),  unique=False, nullable=True)
+	last_name = db.Column(db.String(20), unique=False, nullable=True)
+	grade = db.Column(db.Integer, nullable=True)
 	email = db.Column(db.String(120), unique=True, nullable=False)
-	image_file = db.Column(db.String(20), nullable=False, default="default.jpg") #user's profile picture
+	responsibility = db.Column(db.Text, nullable=True)
 	password = db.Column(db.String(60), nullable=False)
-	bio = db.Column(db.String(400))
-	gender = db.Column(db.String(20))
 	role = db.Column(db.String(10), default="Member")
-	submission = db.relationship("Submission", backref="creator", lazy=True)
+	submission = db.relationship("Submission", secondary="user_submission", backref="team_member", lazy=True) #Submission.team_member
 
 	def get_reset_token(self, expires_seconds=1800):
 		serializer_obj = Serializer(current_app.config["SECRET_KEY"], expires_seconds)
@@ -36,7 +37,7 @@ class User(db.Model, UserMixin):
 		return User.query.get(user_id)
 
 	def __repr__(self):
-		return f"User({self.username}, {self.email}, {self.gender}, {self.bio}, {self.image_file})"
+		return f"User({self.username}, {self.email}, {self.first_name}, {self.last_name}, {self.role})"
 
 class Post(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -53,19 +54,36 @@ class SubscribedUser(db.Model):
 
 class Submission(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False) #user.id = primary_key of User
-	team_name = db.Column(db.String(100), nullable=False)
-	school_name = db.Column(db.String(100), nullable=False)
+	code = db.Column(db.Integer, nullable=False) #6 digit code/id. Make this the primary key?
+	team_name = db.Column(db.String(100), nullable=True)
+	school_name = db.Column(db.String(100), nullable=True)
 	video = db.Column(db.String(100), nullable=True)
 	github = db.Column(db.String(100), nullable=True)
 	description = db.Column(db.String(), nullable=True)
+	editable = db.Column(db.Boolean, default=True)
+	draft = db.Column(db.Boolean, default=True, nullable=False)
 
+	def __repr__(self):
+		return f"Submission({self.code}, {self.team_name}, {self.team_member}, draft: {self.draft})"
+
+class UserSubmission(db.Model):
+    __tablename__ = 'user_submission'
+
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    submission_id = db.Column(db.Integer(), db.ForeignKey('submission.id'))
+
+class UserSubmissionView(ModelView):
+    column_hide_backrefs = False
+    column_list = ('username', 'email', 'grade', 'submission')
+    def is_accessible(self):
+    	return current_user.is_authenticated and current_user.role == "Admin" 
 
 class MyModelView(ModelView):
 	def is_accessible(self):
 		return current_user.is_authenticated and current_user.role == "Admin" 
 
-admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Post, db.session))
 admin.add_view(MyModelView(SubscribedUser, db.session))
 admin.add_view(MyModelView(Submission, db. session))
+admin.add_view(UserSubmissionView(User, db.session))
