@@ -1,15 +1,20 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, TextAreaField, FormField, FieldList, Form, IntegerField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional, URL
+from wtforms.fields import html5 as h5fields
+from wtforms.widgets import html5 as h5widgets
 from flask_login import current_user
-from application.models import User
+from application.models import User, Submission
 
 class RegistrationForm(FlaskForm):
 	username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
 	email = StringField("Email", validators=[DataRequired(), Email()])
 	password = PasswordField("Password", validators=[DataRequired()])
-	confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")]) #Confirm password must be equal to password
+	confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password", message="Passwords must match")]) #Confirm password must be equal to password
+	first_name = StringField("First Name", validators=[DataRequired(Length(min=1, max=20))])
+	last_name = StringField("Last Name", validators=[DataRequired(Length(min=1, max=30))])
+	age = h5fields.IntegerField("Age", validators=[DataRequired()], widget=h5widgets.NumberInput(min=1, max=100, step=1))
 	submit = SubmitField("Register")
 
 	def validate_username(self, username):

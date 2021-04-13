@@ -1,4 +1,8 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+
+{% from "macro_field.html" import macro_field with context %}
+
+{% block content %}
 <div class="row mx-auto" style="height: 100vh">
   <div
     class="col-lg-6 text-white order-lg-2 showcase-img d-none d-lg-block"
@@ -11,63 +15,16 @@
   </div>
   <div class="col-lg-6 my-auto mx-auto order-lg-1 showcase-text mb-3 lead">
     <form method="POST" action="">
-      <!-- empty action means it will post back to the same route -->
-      {{ form.hidden_tag() }}
-      <!-- Adds a CSRF (Cross Site Request Forgery) token -->
+      {{ form.hidden_tag() }} <!-- Adds a CSRF (Cross Site Request Forgery) token -->
       <fieldset class="form-group rlpadding">
         <legend class="border-bottom mb-4">Join Today</legend>
-        <div class="form-group row-width">
-          {{ form.username.label(class="form-control-label") }} {% if
-          form.username.errors %} {{form.username(class="form-control
-          form-control-lg is-invalid")}}
-          <div class="invalid-feedback">
-            {% for error in form.username.errors %}
-            <span> {{error}} </span>
-            {% endfor %}
-          </div>
-          {% else %} {{ form.username(class="form-control form-control-lg") }}
-          {% endif %}
-        </div>
-
-        <div class="form-group row-width">
-          {{ form.email.label(class="form-control-label") }} {% if
-          form.email.errors %} {{form.email(class="form-control form-control-lg
-          is-invalid")}}
-          <div class="invalid-feedback">
-            {% for error in form.email.errors %}
-            <span> {{error}} </span>
-            {% endfor %}
-          </div>
-          {% else %} {{ form.email(class="form-control form-control-lg") }} {%
-          endif %}
-        </div>
-
-        <div class="form-group row-width">
-          {{ form.password.label(class="form-control-label") }} {% if
-          form.password.errors %} {{form.password(class="form-control
-          form-control-lg is-invalid")}}
-          <div class="invalid-feedback">
-            {% for error in form.password.errors %}
-            <span> {{error}} </span>
-            {% endfor %}
-          </div>
-          {% else %} {{ form.password(class="form-control form-control-lg") }}
-          {% endif %}
-        </div>
-
-        <div class="form-group row-width">
-          {{ form.confirm_password.label(class="form-control-label") }} {% if
-          form.confirm_password.errors %}
-          {{form.confirm_password(class="form-control form-control-lg
-          is-invalid")}}
-          <div class="invalid-feedback">
-            {% for error in form.confirm_password.errors %}
-            <span> {{error}} </span>
-            {% endfor %}
-          </div>
-          {% else %} {{ form.confirm_password(class="form-control
-          form-control-lg") }} {% endif %}
-        </div>
+        {{ macro_field(form.username) }}
+        {{ macro_field(form.email) }}
+        {{ macro_field(form.password) }}
+        {{ macro_field(form.confirm_password) }}
+        {{ macro_field(form.first_name) }}
+        {{ macro_field(form.last_name) }}
+        {{ macro_field(form.age) }}
       </fieldset>
 
       <div class="form-group">
