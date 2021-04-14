@@ -16,12 +16,13 @@ class User(db.Model, UserMixin):
 	username = db.Column(db.String(20), unique=True, nullable=False)
 	first_name = db.Column(db.String(20),  unique=False, nullable=True)
 	last_name = db.Column(db.String(20), unique=False, nullable=True)
-	grade = db.Column(db.Integer, nullable=True)
+	age = db.Column(db.Integer, nullable=True)
 	email = db.Column(db.String(120), unique=True, nullable=False)
 	responsibility = db.Column(db.Text, nullable=True)
 	password = db.Column(db.String(60), nullable=False)
 	role = db.Column(db.String(10), default="Member")
 	submission = db.relationship("Submission", secondary="user_submission", backref="team_member", lazy=True) #Submission.team_member
+	date_joined = db.Column(db.DateTime, nullable=True, default=datetime.utcnow)
 
 	def get_reset_token(self, expires_seconds=1800):
 		serializer_obj = Serializer(current_app.config["SECRET_KEY"], expires_seconds)
@@ -75,7 +76,7 @@ class UserSubmission(db.Model):
 
 class UserSubmissionView(ModelView):
     column_hide_backrefs = False
-    column_list = ('username', 'email', 'grade', 'submission')
+    column_list = ('username', 'email', 'age', 'submission')
     def is_accessible(self):
     	return current_user.is_authenticated and current_user.role == "Admin" 
 
