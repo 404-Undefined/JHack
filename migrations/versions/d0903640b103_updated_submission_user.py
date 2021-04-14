@@ -34,8 +34,8 @@ def upgrade():
     sa.PrimaryKeyConstraint('id', name=op.f('pk_user_submission'))
     )
     with op.batch_alter_table('submission', schema=None, naming_convention=convention) as batch_op:
-        batch_op.add_column(sa.Column('code', sa.Integer(), nullable=False))
-        batch_op.add_column(sa.Column('draft', sa.Boolean(), nullable=False))
+        batch_op.add_column(sa.Column('code', sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column('draft', sa.Boolean(), nullable=True))
         batch_op.add_column(sa.Column('editable', sa.Boolean(), nullable=True))
         batch_op.alter_column('school_name',
                existing_type=sa.VARCHAR(length=100),
@@ -43,7 +43,7 @@ def upgrade():
         batch_op.alter_column('team_name',
                existing_type=sa.VARCHAR(length=100),
                nullable=True)
-        batch_op.drop_constraint('fk_submission_user_id_user', type_='foreignkey')
+        # batch_op.drop_constraint('fk_submission_user_id_user', type_='foreignkey')
         batch_op.drop_column('user_id')
 
     with op.batch_alter_table('user', schema=None, naming_convention=convention) as batch_op:
