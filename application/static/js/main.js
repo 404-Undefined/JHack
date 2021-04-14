@@ -57,7 +57,7 @@ function setup() {
 function draw() {
   background(0);
   n ++;
-  if(n < 10000){
+  if(n < 5000){
     let dt = 0.01;
     let dx = a * (y - x) * dt;
     let dy = (x * (b - z) - y) * dt;
