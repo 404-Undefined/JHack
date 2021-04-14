@@ -63,6 +63,11 @@
                 >Logout</a
               >
             </li>
+            <li class="nav-item">
+              <a class="nav-link item white-text" href="{{url_for('users.portal', username=current_user.username)}}"
+                >Portal</a
+              >
+            </li>
           {% else %}
             <li class="nav-item">
               <a class="nav-link item white-text" href="{{url_for('users.register')}}">Register</a>
