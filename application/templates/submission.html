@@ -98,7 +98,7 @@
       <h2>Team Information</h2>
 
       <div class="item">
-        <p>Team Name</p>
+        {{form.team_name.label}}}
         <div class="item">
         {% if form.team_name.errors %}
           {{form.team_name }}
@@ -113,7 +113,7 @@
         </div>
       </div>
       <div class="item">
-        <p>School Name</p>
+        {{form.school_name.label}}}
         {% if form.school_name.errors %}
           {{form.school_name }}
             <div>
@@ -127,7 +127,7 @@
       </div>
 
       <div class="item">
-        <p>Github Repository URL (optional)</p>
+        {{form.github.label}}}
         {% if form.github.errors %}
           {{form.github }}
             <div class="invalid-feedback">
@@ -141,7 +141,7 @@
       </div>
 
       <div class="item">
-        <p>Video URL (optional)</p>
+        {{form.video.label}}
         {% if form.video.errors %}
           {{form.video }}
             <div>
@@ -153,6 +153,11 @@
           {{form.video }}
         {% endif %}
       </div>
+
+      <div class="item">
+        {{form.draft.label}}
+        {{form.draft}}
+      </div>      
 
       <h3>Project</h3>
       <p>

@@ -26,17 +26,22 @@
     <div class="row no-gutters">
       <div class="col-lg-6 order-lg-2 showcase-img" style="padding: 50px">
         <section>
-          <form action="{{ url_for('users.handle_code') }}" method="post">
-            
-              {% for team_name in team_names %}
+          <form action="" method="post">
+              {% for team_submission in team_submissions %}
               <div class="row no-gutters" style="border: 2px solid black; padding: 10px; margin-bottom:20px;">
                 <div class="col-lg-6 d-flex justify-content-center pr-1" style="margin:auto;">
-                  Team Code - {{team_name}}
+                  {{team_submission.team_name}}
+                  <br>
+                  Code - {{team_submission.code}}
                 </div>
                 <div class="col-lg-6 d-flex justify-content-center pr-1" style="padding: 10px; magin: auto;">
-                  <button class="btn btn-danger btn-sm" style="font-size: 20px; padding: 10px; magin: auto;">
-                    <a href="{{url_for('users.submission', teamname=team_name)}}" class="submission-button">Submit Project</a>
-                  </button>
+                  {% if team_submission.draft %}
+                    <button class="btn btn-danger btn-sm" style="font-size: 20px; padding: 10px; magin: auto;">
+                        <a href="{{url_for('users.submission', team_code=team_submission.code)}}" class="submission-button">Submit Project</a>
+                    </button>
+                  {% else %}
+                    <p>Submitted</p>
+                  {% endif %}
                 </div> 
               </div>
               <hr class="break-line">
@@ -58,7 +63,7 @@
                 <div style="text-align: center; margin-bottom: 10px;  width: 100%; text-align: center; border-bottom: 1px solid #000; line-height: 0.1em; margin: 20px 0 20px;">
                   <span style="background:#fff;padding:0 10px;">OR</span>
                 </div>
-                <input name="submit_button" value="create" class="btn btn-primary btn-block btn-lg" style="width: 50%; display: block; margin: 0 auto;" type="submit"/>
+                <input name="submit_button" value="Create" class="btn btn-primary btn-block btn-lg" style="width: 50%; display: block; margin: 0 auto;" type="submit"/>
             </div>
           </form>
         </section>

@@ -104,7 +104,7 @@ def reset_token(token):
 		return redirect(url_for("users.login"))
 	return render_template("reset_password.html", title="Reset Password", form=form)
 
-@users.route("/portal/<username>")
+@users.route("/portal/<username>", methods=["GET", "POST"])
 @login_required
 def portal(username):
 	if current_user.username != username:
@@ -114,9 +114,9 @@ def portal(username):
 	posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=4) #4 posts per page in descending order of date
 
 	user = User.query.filter_by(username=username).first()
-	team_names = [submission.team_name for submission in user.submission]
+	team_submissions = [submission for submission in user.submission]
 
-	return render_template("portal.html", posts=posts, user=current_user, team_names=team_names)
+	return render_template("portal.html", posts=posts, user=current_user, team_submissions=team_submissions)
 
 
 @users.route('/handle_code', methods=["GET", "POST"])
@@ -124,7 +124,7 @@ def handle_code():
 	user = User.query.filter_by(username=current_user.username).first() #get the current user
 	if user.submission: # user is already in a team
 		flash("You are already in a team!", "warning")
-	elif request.form["submit_button"] == "join": # join an existing team
+	elif request.form["submit_button"] == "Join": # join an existing team
 		team_code = request.form['code_input']
 		team_submission = Submission.query.filter_by(code=int(team_code)).first()
 
@@ -137,11 +137,11 @@ def handle_code():
 
 			db.session.commit()
 			flash(f"You have been added to the team {team_submission.team_name}!", "success")
-	elif request.form["submit_button"] == "create": # create a new team
+	elif request.form["submit_button"] == "Create": # create a new team
 		existing_codes = [submission.code for submission in Submission.query.all()] #list of all existing codes
 		new_code = random.choice([x for x in range(100000, 1000000) if x not in existing_codes]) #generate a new 6 digit code
 
-		new_team = Submission(code=new_code, team_name=str(new_code)) #default team name = code
+		new_team = Submission(code=new_code, team_name=f"{user.username}'s project")
 		new_team.team_member.append(user) #add this user to the new team
 
 		db.session.add(new_team)
@@ -153,10 +153,10 @@ def handle_code():
 	return redirect(url_for("users.portal", username=current_user.username))
 
 
-@users.route("/submission/<teamname>", methods=["GET", "POST"])
+@users.route("/submission/<team_code>", methods=["GET", "POST"])
 @login_required
-def submission(teamname):
-	team_submission = Submission.query.filter_by(team_name=teamname).first()
+def submission(team_code):
+	team_submission = Submission.query.filter_by(code=team_code).first()
 
 	if not team_submission: # this team does not exist
 		abort(404) #page not found error
@@ -174,6 +174,7 @@ def submission(teamname):
 		team_submission.team_name = form.team_name.data
 		team_submission.school_name = form.school_name.data
 		team_submission.description = form.description.data
+		team_submission.draft = form.draft.data
 
 		db.session.commit()
 		return redirect(url_for("users.portal", username=current_user.username))
@@ -183,4 +184,5 @@ def submission(teamname):
 		form.school_name.data = team_submission.school_name
 		form.team_name.data = team_submission.team_name
 		form.description.data = team_submission.description
+		form.draft.data = team_submission.draft
 	return render_template("submission.html", form=form, user=current_user)
