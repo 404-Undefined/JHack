@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% from "submission_macro.html" import submission_macro with context %}
+
+{% block content %}
 <style>
   .main {
     background: url("https://jhack-hackathon.s3-ap-northeast-1.amazonaws.com/static/assets/images/background-0.jpg")
@@ -97,67 +100,15 @@
       {{ form.hidden_tag() }}
       <h2>Team Information</h2>
 
-      <div class="item">
-        {{form.team_name.label}}}
-        <div class="item">
-        {% if form.team_name.errors %}
-          {{form.team_name }}
-            <div>
-              {% for error in form.team_name.errors %}
-              <span> {{error}} </span>
-              {% endfor %}
-            </div>
-        {% else %}
-          {{ form.team_name }}
-        {% endif %}
-        </div>
-      </div>
-      <div class="item">
-        {{form.school_name.label}}}
-        {% if form.school_name.errors %}
-          {{form.school_name }}
-            <div>
-              {% for error in form.school_name.errors %}
-              <span> {{error}} </span>
-              {% endfor %}
-            </div>
-        {% else %}
-          {{ form.school_name }}
-        {% endif %}
-      </div>
-
-      <div class="item">
-        {{form.github.label}}}
-        {% if form.github.errors %}
-          {{form.github }}
-            <div class="invalid-feedback">
-              {% for error in form.github.errors %}
-              <span> {{error}} </span>
-              {% endfor %}
-            </div>
-        {% else %}
-          {{ form.github }}
-        {% endif %}
-      </div>
-
-      <div class="item">
-        {{form.video.label}}
-        {% if form.video.errors %}
-          {{form.video }}
-            <div>
-              {% for error in form.video.errors %}
-              <span> {{error}} </span>
-              {% endfor %}
-            </div>
-        {% else %}
-          {{form.video }}
-        {% endif %}
-      </div>
+      {{ submission_macro(form.team_name) }}
+      {{ submission_macro(form.school_name) }}
+      {{ submission_macro(form.github) }}
+      {{ submission_macro(form.video) }}
 
       <div class="item">
         {{form.draft.label}}
         {{form.draft}}
-      </div>      
+      </div>
 
       <h3>Project</h3>
       <p>

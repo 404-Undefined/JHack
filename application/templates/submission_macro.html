@@ -1,0 +1,18 @@
+{% macro submission_macro(field) %}
+
+<div class="item">
+	{{field.label}}
+	<div class="item">
+		{% if field.errors %}
+		  	{{field }}
+		    <div>
+		      {% for error in field.errors %}
+		      <span> {{error}} </span>
+		      {% endfor %}
+		    </div>
+		{% else %}
+		  	{{ field }}
+		{% endif %}
+	</div>
+</div>
+{% endmacro %}
