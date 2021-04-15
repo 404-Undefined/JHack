@@ -11,22 +11,22 @@ $(document).ready(function () {
 CKEDITOR.replace("editor1");
 CKEDITOR.replace("editor2");
 
-function add() {
-  event.preventDefault();
-  if ($("#total_chq").val() < 4) {
-    var index = parseInt($("#total_chq").val()) + 1;
-    $("#member_" + index).show();
-    $("#total_chq").val(index);
-  }
-}
-function remove() {
-  event.preventDefault();
-  var last_no = $("#total_chq").val();
-  if (last_no > 1) {
-    $("#member_" + last_no).hide();
-    $("#total_chq").val(last_no - 1);
-  }
-}
+// function add() {
+//   event.preventDefault();
+//   if ($("#total_chq").val() < 4) {
+//     var index = parseInt($("#total_chq").val()) + 1;
+//     $("#member_" + index).show();
+//     $("#total_chq").val(index);
+//   }
+// }
+// function remove() {
+//   event.preventDefault();
+//   var last_no = $("#total_chq").val();
+//   if (last_no > 1) {
+//     $("#member_" + last_no).hide();
+//     $("#total_chq").val(last_no - 1);
+//   }
+// }
 
 let x = 0.01;
 let y = 0;
@@ -45,6 +45,11 @@ let angleZ = 0;
 let points = new Array();
 
 function setup() {
+  var clientHeight = document.getElementById("portal_h").clientHeight;
+  var clientWidth = document.getElementById("portal_h").clientWidth;
+
+  var c = createCanvas(clientWidth, clientHeight);
+
   var clientHeight = document.getElementById("portal_header").clientHeight;
   var clientWidth = document.getElementById("portal_header").clientWidth;
 
@@ -56,8 +61,8 @@ function setup() {
 
 function draw() {
   background(0);
-  n ++;
-  if(n < 5000){
+  n++;
+  if (n < 5000) {
     let dt = 0.01;
     let dx = a * (y - x) * dt;
     let dy = (x * (b - z) - y) * dt;
