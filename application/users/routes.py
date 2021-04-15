@@ -5,7 +5,7 @@ from application.database import db
 from application.models import User, Post, Submission
 from application.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm, SubmissionForm)
-from application.users.utils import save_picture, send_reset_email
+from application.users.utils import send_reset_email
 import os
 import random
 
@@ -71,18 +71,20 @@ def account():
 		form.gender.data = current_user.gender
 	return render_template("account.html", title="Account", form=form)
 
-@users.route("/reset_password", methods=["GET", "POST"])
+@users.route("/reset_request", methods=["GET", "POST"])
 def reset_request():
 	if current_user.is_authenticated:
 		return redirect(url_for("main.home"))	
 	form = RequestResetForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
-		send_reset_email(user)
-		flash("An email has been sent with instructions to reset your password.", "info")
+		if send_reset_email(user):
+			flash("An email has been sent with instructions to reset your password.", "info")
+		else:
+			flash("An error occured. Please try again later.", "danger")
 		return redirect(url_for("users.login"))
 
-	return render_template("reset_request.html", title="Reset Password", form=form)
+	return render_template("reset_request.html", title="Request Password Reset", form=form)
 
 @users.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_token(token):
@@ -91,7 +93,7 @@ def reset_token(token):
 
 	user = User.verify_reset_token(token)
 	if not user:
-		flash("The token is invalid or expired.", "warning")
+		flash("The token is invalid or expired. Please request again.", "warning")
 		return redirect(url_for("users.reset_request"))
 
 	form = ResetPasswordForm()
@@ -148,7 +150,7 @@ def handle_code():
 
 		flash(f"You have created a new team! Share this code {new_code} with your friends now!", "success")
 	else:
-		pass # unknown
+		flash(f"An unknown error occured. Please try again later.", "danger")
 	return redirect(url_for("users.portal", username=current_user.username))
 
 
