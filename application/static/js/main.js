@@ -11,6 +11,11 @@ $(document).ready(function () {
 CKEDITOR.replace("editor1");
 CKEDITOR.replace("editor2");
 
+// CKEDITOR.instances["editor2"].insertHtml("<h2>What does your project do?</h2><h2>What tools/programming languages did you use?</h2><h2>Challenges that you faced</h2><h2>Optional improvements/extensions to your project</h2>");
+CKEDITOR.instances["editor2"].setData("What does your project do?  What tools/programming languages did you use? What Challenges did you face?  What are some optional improvements/extensions to your project?")
+
+
+
 // function add() {
 //   event.preventDefault();
 //   if ($("#total_chq").val() < 4) {
@@ -62,7 +67,7 @@ function setup() {
 function draw() {
   background(0);
   n++;
-  if (n < 5000) {
+  if (n < 3000) {
     let dt = 0.01;
     let dx = a * (y - x) * dt;
     let dy = (x * (b - z) - y) * dt;
@@ -104,3 +109,9 @@ function draw() {
   }
   endShape();
 }
+
+$(".navbar-toggler").click(function () {
+  $("nav").toggleClass("bg-dark");
+});
+
+// $(".main").css("padding-top", "50px"):
