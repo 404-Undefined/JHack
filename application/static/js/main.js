@@ -11,22 +11,22 @@ $(document).ready(function () {
 CKEDITOR.replace("editor1");
 CKEDITOR.replace("editor2");
 
-function add() {
-  event.preventDefault();
-  if ($("#total_chq").val() < 4) {
-    var index = parseInt($("#total_chq").val()) + 1;
-    $("#member_" + index).show();
-    $("#total_chq").val(index);
-  }
-}
-function remove() {
-  event.preventDefault();
-  var last_no = $("#total_chq").val();
-  if (last_no > 1) {
-    $("#member_" + last_no).hide();
-    $("#total_chq").val(last_no - 1);
-  }
-}
+// function add() {
+//   event.preventDefault();
+//   if ($("#total_chq").val() < 4) {
+//     var index = parseInt($("#total_chq").val()) + 1;
+//     $("#member_" + index).show();
+//     $("#total_chq").val(index);
+//   }
+// }
+// function remove() {
+//   event.preventDefault();
+//   var last_no = $("#total_chq").val();
+//   if (last_no > 1) {
+//     $("#member_" + last_no).hide();
+//     $("#total_chq").val(last_no - 1);
+//   }
+// }
 
 let x = 0.01;
 let y = 0;
@@ -36,6 +36,8 @@ let a = 10;
 let b = 28;
 let c = 8.0 / 3.0;
 
+let n = 0;
+
 let angleX = 0;
 let angleY = 0;
 let angleZ = 0;
@@ -43,6 +45,11 @@ let angleZ = 0;
 let points = new Array();
 
 function setup() {
+  var clientHeight = document.getElementById("portal_h").clientHeight;
+  var clientWidth = document.getElementById("portal_h").clientWidth;
+
+  var c = createCanvas(clientWidth, clientHeight);
+
   var clientHeight = document.getElementById("portal_header").clientHeight;
   var clientWidth = document.getElementById("portal_header").clientWidth;
 
@@ -54,15 +61,16 @@ function setup() {
 
 function draw() {
   background(0);
-
-  let dt = 0.01;
-  let dx = a * (y - x) * dt;
-  let dy = (x * (b - z) - y) * dt;
-  let dz = (x * y - c * z) * dt;
-  x = x + dx;
-  y = y + dy;
-  z = z + dz;
-
+  n++;
+  if (n < 5000) {
+    let dt = 0.01;
+    let dx = a * (y - x) * dt;
+    let dy = (x * (b - z) - y) * dt;
+    let dz = (x * y - c * z) * dt;
+    x = x + dx;
+    y = y + dy;
+    z = z + dz;
+  }
   points.push(new p5.Vector(x, y, z));
 
   translate(0, 0, 200);
@@ -95,22 +103,4 @@ function draw() {
     }
   }
   endShape();
-
-  //println(x,y,z);
 }
-
-// function add(){
-//   if($('#total_chq').val() < 4){
-//     var new_chq_no = parseInt($('#total_chq').val())+1;
-//     var new_input='<div class="form-field" id="input-container' + new_chq_no + '""><div class="form-group"><input type="text" name="firstname' + new_chq_no + '" class="form-control"></div><div class="form-group"><input type="text" name="lastname ' + new_chq_no + '" class="form-control"></div></div>'
-//     $('#member_container').append(new_input);
-//     $('#total_chq').val(new_chq_no)
-//   }
-// }
-// function remove(){
-//   var last_chq_no = $('#total_chq').val();
-//   if(last_chq_no>1){
-//     $('#input-container'+last_chq_no).remove();
-//     $('#total_chq').val(last_chq_no-1);
-//   }
-// }

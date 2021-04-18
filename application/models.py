@@ -55,14 +55,14 @@ class SubscribedUser(db.Model):
 
 class Submission(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	code = db.Column(db.Integer, nullable=False) #6 digit code/id. Make this the primary key?
+	code = db.Column(db.Integer, nullable=True) #6 digit code/id. Make this the primary key?
 	team_name = db.Column(db.String(100), nullable=True)
 	school_name = db.Column(db.String(100), nullable=True)
 	video = db.Column(db.String(100), nullable=True)
 	github = db.Column(db.String(100), nullable=True)
 	description = db.Column(db.String(), nullable=True)
 	editable = db.Column(db.Boolean, default=True)
-	draft = db.Column(db.Boolean, default=True, nullable=False)
+	draft = db.Column(db.Boolean, default=True, nullable=True)
 
 	def __repr__(self):
 		return f"Submission({self.code}, {self.team_name}, {self.team_member}, draft: {self.draft})"

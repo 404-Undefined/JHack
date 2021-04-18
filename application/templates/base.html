@@ -42,6 +42,18 @@
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ELYZEMQKW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9ELYZEMQKW');
+    </script>
+  </head>
+
+  <body>
     <nav
       class="navbar navbar-default navbar-expand-lg navbar-dark fixed-top"
       style="
@@ -52,15 +64,20 @@
       "
       id="navb"
     >
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           {% if current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link item white-text" href="{{url_for('users.logout')}}"
                 >Logout</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link item white-text" href="{{url_for('users.portal', username=current_user.username)}}"
+                >Portal</a
               >
             </li>
           {% else %}
@@ -90,20 +107,9 @@
         </ul>
       </div>
     </nav>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ELYZEMQKW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-9ELYZEMQKW');
-    </script>
-  </head>
-
-  <body>
-    {% block content %}{% endblock %}
-    <footer class="text-center text-white" style="background-color: #f1f1f1">
+    <div id="portal_h"></div>
+      {% block content %}{% endblock %}
+    <footer class="text-center text-white" style="background-color: #f1f1f1;">
       <!-- Grid container -->
       <div class="container pt-4">
         <!-- Section: Social media -->

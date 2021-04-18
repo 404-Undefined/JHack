@@ -3,7 +3,8 @@
 {% from "macro_field.html" import macro_field with context %}
 
 {% block content %}
-<div class="row mx-auto" style="height: 100vh">
+
+<div class="row mx-auto">
   <div
     class="col-lg-6 text-white order-lg-2 showcase-img d-none d-lg-block"
     style="
@@ -14,33 +15,32 @@
     <span></span>
   </div>
   <div class="col-lg-6 my-auto mx-auto order-lg-1 showcase-text mb-3 lead">
-    <form method="POST" action="">
-      {{ form.hidden_tag() }} <!-- Adds a CSRF (Cross Site Request Forgery) token -->
-      <fieldset class="form-group rlpadding">
-        <legend class="border-bottom mb-4">Join Today</legend>
-        {{ macro_field(form.username) }}
-        {{ macro_field(form.email) }}
-        {{ macro_field(form.password) }}
-        {{ macro_field(form.confirm_password) }}
-        {{ macro_field(form.first_name) }}
-        {{ macro_field(form.last_name) }}
-        {{ macro_field(form.age) }}
-      </fieldset>
-
-      <div class="form-group">
-        {{ form.submit(class="btn btn-outline-primary") }}
+    <div style="padding-top: 30px;">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }} <!-- Adds a CSRF (Cross Site Request Forgery) token -->
+        <fieldset class="form-group rlpadding">
+          <legend class="border-bottom mb-4">Join Today</legend>
+          {{ macro_field(form.username) }}
+          {{ macro_field(form.email) }}
+          {{ macro_field(form.password) }}
+          {{ macro_field(form.confirm_password) }}
+          {{ macro_field(form.first_name) }}
+          {{ macro_field(form.last_name) }}
+          {{ macro_field(form.age) }}
+        </fieldset>
+        <div class="form-group" >
+          {{ form.submit(class="btn btn-outline-primary") }}
+        </div>
+      </form>
+      <div class="border-top pt-3" style="padding-bottom: 100px;">
+        <small class="text-muted">
+          Already Have An Account?
+          <a class="ml-2" href="{{url_for('users.login') }}"> Sign In </a>
+          <!-- name of the function not route -->
+        </small>
       </div>
-    </form>
-
-    <div class="border-top pt-3 rlpadding">
-      <small class="text-muted">
-        Already Have An Account?
-        <a class="ml-2" href="{{url_for('users.login') }}"> Sign In </a>
-        <!-- name of the function not route -->
-      </small>
     </div>
   </div>
 </div>
-
 {% endblock content %}
 <!-- the name of the block "content" in endblock is optonal -->

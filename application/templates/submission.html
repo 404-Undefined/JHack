@@ -112,63 +112,6 @@
         {% endif %}
         </div>
       </div>
-
-      <div class="item">
-        <p>Members</p>
-          <div id="member_container">
-            <!-- first guy -->
-            <div class="form-field">
-                <div class="form-group">
-                  <label for="fname">First Name</label>
-                  <input type="text" name="firstname1" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="lname">Last Name</label>
-                  <input type="text" name="lastname1" class="form-control">
-                </div> 
-            </div>  
-            <!-- second guy -->
-            <div class="form-field" style="display: none;" id="member_2">
-                <div class="form-group">
-                  <label for="fname">First Name</label>
-                  <input type="text" name="firstname1" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="lname">Last Name</label>
-                  <input type="text" name="lastname1" class="form-control">
-                </div> 
-            </div>
-              <!-- third guy -->
-            <div class="form-field" style="display: none" id="member_3">
-                <div class="form-group">
-                  <label for="fname">First Name</label>
-                  <input type="text" name="firstname1" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="lname">Last Name</label>
-                  <input type="text" name="lastname1" class="form-control">
-                </div> 
-            </div>
-              <!-- fourth guy -->
-            <div class="form-field" style="display: none;" id="member_4"> 
-                <div class="form-group">
-                  <label for="fname">First Name</label>
-                  <input type="text" name="firstname1" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="lname">Last Name</label>
-                  <input type="text" name="lastname1" class="form-control">
-                </div> 
-            </div>
-          
-          </div>
-          <!-- a hidden index counter don't touch it stays right here-->
-          <input type="hidden" value="1" id="total_chq">
-          <!--  -->
-          <button class="btn btn-outline-none" onclick="add()"><i class="fas fa-plus"></i> Add Member</button>
-          <button class="btn btn-outline-none" onclick="remove()"><i class="fas fa-times"></i> Remove Member</button>
-      </div>
-
       <div class="item">
         <p>School Name</p>
         {% if form.school_name.errors %}
