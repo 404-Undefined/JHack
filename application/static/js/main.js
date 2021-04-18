@@ -11,9 +11,6 @@ $(document).ready(function () {
 CKEDITOR.replace("editor1");
 CKEDITOR.replace("editor2");
 
-// CKEDITOR.instances["editor2"].insertHtml("<h2>What does your project do?</h2><h2>What tools/programming languages did you use?</h2><h2>Challenges that you faced</h2><h2>Optional improvements/extensions to your project</h2>");
-CKEDITOR.instances["editor2"].setData("What does your project do?  What tools/programming languages did you use? What Challenges did you face?  What are some optional improvements/extensions to your project?")
-
 
 
 // function add() {

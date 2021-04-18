@@ -118,6 +118,18 @@
       </p>
 
       <div class="item">
+        {% block javascript %}
+          {% if not form.description.data %}
+            <script>
+              CKEDITOR.instances["editor2"].setData("<h2>What does your project do?</h2> <h2>What tools/programming languages did you use?</h2> <h2>What challenges did you face?</h2><h2>What are some optional improvements/extensions to your project?</h2>")
+            </script>
+          {% else %}
+            <script>
+              CKEDITOR.instances["editor2"].setData(form.description.data)
+            </script>
+          {% endif %}
+        {% endblock %}
+
         {% if form.description.errors %}
           {{form.description(id="editor2") }}
             <div class="invalid-feedback">
