@@ -72,7 +72,7 @@
 
         <section>
           <h2 style="text-align: center;">Announcements</h2>
-        <!-- Loop Announcement -->
+          <!-- Loop Announcement -->
           {% for post in posts.items %}
             <div style="border: 3px solid black; border-style: none none none solid; padding: 10px; margin-top: 10px; margin-bottom: 20px; background-color: #e8fcfc">
               <h3>{{post.title}}</h3>
@@ -80,6 +80,21 @@
               {{post.content|safe}}
             </div>
           {% endfor %}
+
+          <!-- pagination buttons -->
+          <div style="text-align: center;">
+            {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+              {% if page_num %}
+                {% if posts.page == page_num %}
+                  <a class="btn btn-primary mb-4" href="{{url_for('users.portal', username=user.username, page=page_num)}}">{{page_num}}</a>
+                {% else %}
+                  <a class="btn btn-outline-primary mb-4" href="{{url_for('users.portal', username=user.username, page=page_num)}}">{{page_num}}</a>
+                {% endif %}
+              {% else %}
+                ...
+              {% endif %}
+            {% endfor %}
+          </div>
         </section>
 
         <hr class="break-line">
@@ -89,9 +104,11 @@
           <div class="speaker-container">
             Coding
             <ul>
-              <li><a href="https://www.geeksforgeeks.org">Geek for Geek</a></li>
-              <li><a href="https://education.github.com/pack">Github Student Development Pack</a></li>
-              <li><a href="https://stackoverflow.com">Stackoverflow</a></li>
+              <li><a target="_blank" href="https://www.geeksforgeeks.org">Geek for Geek</a></li>
+              <li><a target="_blank" href="https://education.github.com/pack">Github Student Development Pack</a></li>
+              <li><a target="_blank" href="https://stackoverflow.com">Stack Overflow</a></li>
+              <li><a target="_blank" href="https://www.youtube.com/user/schafer5">Corey Schafer's YouTube Channel (for Python)</a></li>
+              <li><a target="_blank" href="https://www.youtube.com/user/shiffman">The Coding Train (Nature of Code) YouTube Channel (for JS)</a></li>
             </ul>
           </div>
         </section>
