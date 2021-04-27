@@ -94,6 +94,7 @@ class MyModelView(ModelView):
 		return current_user.is_authenticated and current_user.role == "Admin" 
 
 admin.add_view(MyModelView(Post, db.session))
+admin.add_view(MyModelView(Workshop, db.session))
 admin.add_view(MyModelView(SubscribedUser, db.session))
 admin.add_view(MyModelView(Submission, db. session))
 admin.add_view(UserSubmissionView(User, db.session))

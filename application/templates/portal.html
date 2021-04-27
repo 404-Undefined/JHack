@@ -76,7 +76,7 @@
           {% for post in posts.items %}
             <div style="border: 3px solid black; border-style: none none none solid; padding: 10px; margin-top: 10px; margin-bottom: 20px; background-color: #e8fcfc">
               <h3>{{post.title}}</h3>
-              <p style="font-weight: bold;">{{ post.date_posted.strftime("%B %d, %Y %H:%M") }}<p>
+              <p style="font-weight: bold;">{{ momentjs(post.date_posted).format("LLLL") }}<p>
               {{post.content|safe}}
             </div>
           {% endfor %}

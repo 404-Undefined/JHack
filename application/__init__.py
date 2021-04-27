@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_admin import Admin
 from flask_s3 import FlaskS3
+from application.posts.momentjs import momentjs
 
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -18,6 +19,10 @@ s3 = FlaskS3()
 def create_app(config_class=Config):
 	app = Flask(__name__)
 	app.config.from_object(Config)
+
+	@app.context_processor
+	def context_processor():
+		return dict(momentjs=momentjs)
 
 	db.init_app(app)
 	bcrypt.init_app(app)
