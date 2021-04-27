@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint,
 from flask_login import login_user, current_user, logout_user, login_required
 from application import bcrypt
 from application.database import db
-from application.models import User, Post, Submission
+from application.models import User, Post, Submission, Workshop
 from application.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm, SubmissionForm)
 from application.users.utils import send_reset_email
@@ -114,11 +114,12 @@ def portal(username):
 
 	page = request.args.get("page", 1, type=int) #site will throw ValueError if anything other than integer passed as page number. Default page of 1.
 	posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=4) #4 posts per page in descending order of date
+	workshops = Workshop.query.all()
 
 	user = User.query.filter_by(username=username).first()
 	team_submissions = [submission for submission in user.submission]
 
-	return render_template("portal.html", posts=posts, user=current_user, team_submissions=team_submissions)
+	return render_template("portal.html", posts=posts, user=current_user, team_submissions=team_submissions, workshops=workshops)
 
 
 @users.route('/handle_code', methods=["GET", "POST"])

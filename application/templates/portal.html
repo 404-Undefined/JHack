@@ -127,30 +127,13 @@
 
         <section>
           <h2 style="text-align: center;">Workshops</h2>
-          
-          <div class="speaker-container">
-            <div class="speaker-title">Mr. Steve Sabat</div>
-            <div>Email: ssabat@me.com</div>
-            <p>I've been working with computer science in a professional capacity since the early 2000's. I started out as a Sysadmin and network manager at a small aircraft manufacturing plant in a little town in Wyoming, USA. I began working in schools in 2006 as a support technician and database manager. I enjoy working in schools because the IT environment is always changing and is open to innovation. I'm currently the ICT Manager at the Anglo-American School of Sofia, in Bulgaria. Fun fact about me: I used to be a ski instructor at Park City, Utah. Having worked in international schools in Europe for the past 9 years, I've been involved with data privacy, security and GDPR (General Data Protection Regulation) compliance. Many other countries outside of Europe (including Japan) are adopting data privacy laws based upon the GDPR principles.</p>
-            <div><a href="#">Meet Link</a></div>
-            <div>Time: April 26 <span class="underline">2:00pm - 3:00pm</span> (JST)</div>
-          </div>
-          <hr class="break-line">
-          <div class="speaker-container">
-            <div class="speaker-title">Mr. Roddy McNeil</div>
-            <div>Email: rd_mcn@hotmail.com</div>
-            <p>I have been coding for over 30 years across a lot of industries, have taught video game development, and am currently working with a small business that has a platform for anaesthetists and surgeons.  Fun fact: I made a VR game for PAX Australia, including a full-sized controller (or that I once played Sheep in Space for 24 hours when I was a teenager).</p>
-            <div><a href="#">Meet Link</a></div>
-            <div>Time: April 27 <span class="underline">10:30am - 11:30am</span>(JST)</div>
-          </div>
-          <hr class="break-line">
-          <div class="speaker-container">
-            <div class="speaker-title">Mr. Obonguta Felix</div>
-            <div>Email: obongutafelix@gmail.com</div>
-            <p>Felix is currently a doctoral student at Kyoto University majoring in civil engineering. His research interests include infrastructure asset management, transportation, urban planning and the application of data science and artificial intelligence to infrastructure monitoring. </p>
-            <div><a href="#">Meet Link</a></div>
-            <div>Time: April 28th <span class="underline">2:00pm - 3:00pm</span> (JST)</div>
-          </div>
+          {% for workshop in workshops %}
+            <div class="speaker-container">
+              <div class="speaker-title">{{workshop.title}}</div>
+              {{workshop.content|safe}}
+            </div>
+            <hr class="break-line">
+          {% endfor %}
         </section>
       </div>
     </div>

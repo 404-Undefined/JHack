@@ -35,13 +35,6 @@ def handle_subscription():
 		send_confirmation_email(email=email_address)
 	return redirect(url_for("main.home"))
 
-@main.route("/create_post")
-@login_required
-def create_post():
-	if current_user.role != "Admin":
-		abort(403)
-	return render_template("create_post.html")
-
 @main.route("/send_subscribers_email", methods=["GET", "POST"])
 def send_subscribers_email():
 	if current_user.role != "Admin":

@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+
+{% block content %}
+<header class="text-center text-white masthead" style="background-color: black; height: 30vh">
+  <div class="overlay"> </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <h1 class="title">Create Workshop</h1>
+      </div>
+    </div>
+  </div>
+</header>
+<form action="{{ url_for('posts.handle_create_workshop') }}" method="post" style="margin: 40px">
+  <input name="title" placeholder="Title" style="margin-bottom: 20px" />
+  <textarea name="content" id="editor3" rows="10" cols="80"></textarea>
+  <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 20px">
+    Create
+  </button>
+</form>
+{% endblock content %}

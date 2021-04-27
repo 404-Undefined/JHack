@@ -49,6 +49,15 @@ class Post(db.Model):
 	def __repr__(self):
 		return f"Post({self.title}, {self.date_posted} {self.content})"
 
+class Workshop(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(100), nullable=False)
+	date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	content = db.Column(db.Text, nullable=False)
+
+	def __repr__(self):
+		return f"Workshop({self.title}, {self.date_posted} {self.content})"
+
 class SubscribedUser(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	email = db.Column(db.String(120), unique=True, nullable=False)
