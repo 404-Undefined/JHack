@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_admin import Admin
 from flask_s3 import FlaskS3
+from flask_talisman import Talisman
 from application.posts.momentjs import momentjs
 
 bcrypt = Bcrypt()
@@ -15,6 +16,7 @@ login_manager.login_message_category = "info" #Styles "Please log in to view thi
 admin = Admin()
 mail = Mail()
 s3 = FlaskS3()
+talisman = Talisman()
 
 def create_app(config_class=Config):
 	app = Flask(__name__)
@@ -31,6 +33,7 @@ def create_app(config_class=Config):
 	admin.init_app(app)
 	s3.init_app(app)
 	migrate.init_app(app, db, render_as_batch=True)
+	talisman.init_app(app, content_security_policy=None)
 
 	from application.main.routes import main
 	from application.users.routes import users
