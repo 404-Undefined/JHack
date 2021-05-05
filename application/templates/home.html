@@ -118,7 +118,7 @@
                                 <h2 class="text-secondary mb-0">{{submission.team_name}}</h2>
                                 <hr class="star-dark mb-5">
                                 <p>Members: {% for member in submission.team_member %}<span>{{member.username}},</span>{% endfor %}</p>
-                                <p>{% for member in submission.team_member %}<span>{{submission.school_name}}</span>{% endfor %}</p>
+                                <p>{{submission.school_name}}</p>
                                 {% if submission.video is not none %}
                                   <p>Video:<a href="{{submission.video}}" target="_blank">{{submission.video}}</a></p>
                                 {% endif %}
