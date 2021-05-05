@@ -57,5 +57,5 @@ def send_subscribers_email():
 
 @main.route("/gallery")
 def gallery():
-	submissions = Submission.query.filter_by(draft=0).all()
+	submissions = Submission.query.filter_by(draft=False).all()
 	return render_template("gallery.html", submissions=submissions)

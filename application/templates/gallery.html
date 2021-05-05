@@ -2,27 +2,22 @@
 {% block content %}
 
 {% for submission in submissions %}
-  <ul>
-    {% for member in submission.team_member %}
-      <li>{{member.username}}</li>
-    {% endfor %}
+  <h1>{{submission.team_name}}</h1>
+  {% for member in submission.team_member %}
+      <span>{{member.username}},</span>
+  {% endfor %}
+  <h3>{{submission.school_name}}</h3>
 
-  <li>{{submission.team_name}}</li>
-
-  <li>{{submission.school_name}}</li>
   {% if submission.video is not none %}
-    <li><a href="{{submission.video}}" target="_blank">{{submission.video}}</a></li>
+    <div>Video:<a href="{{submission.video}}" target="_blank">{{submission.video}}</a></div>
   {% endif %}
 
   {% if submission.github is not none %}
-    <li><a href="{{submission.github}}" target="_blank">{{submission.github}}</a></li>
+    <div>Github:<a href="{{submission.github}}" target="_blank">{{submission.github}}</a></div>
   {% endif %}
 
-  <li>{{submission.description|safe}}</li>
-  </ul>
-{% endfor %}
+  <p>{{submission.description|safe}}</p>
 
-<style>
-  h2 {color: red;}
-</style>
+
+{% endfor %}
 {% endblock content %}
