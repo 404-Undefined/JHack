@@ -1,0 +1,28 @@
+{% extends "base.html" %} 
+{% block content %}
+
+{% for submission in submissions %}
+  <ul>
+    {% for member in submission.team_member %}
+      <li>{{member.username}}</li>
+    {% endfor %}
+
+  <li>{{submission.team_name}}</li>
+
+  <li>{{submission.school_name}}</li>
+  {% if submission.video is not none %}
+    <li><a href="{{submission.video}}" target="_blank">{{submission.video}}</a></li>
+  {% endif %}
+
+  {% if submission.github is not none %}
+    <li><a href="{{submission.github}}" target="_blank">{{submission.github}}</a></li>
+  {% endif %}
+
+  <li>{{submission.description|safe}}</li>
+  </ul>
+{% endfor %}
+
+<style>
+  h2 {color: red;}
+</style>
+{% endblock content %}

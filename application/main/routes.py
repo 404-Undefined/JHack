@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, request, abort, redirect, url_for
-from application.models import Post, SubscribedUser
+from application.models import Post, SubscribedUser, Submission
 from application.main.utils import send_confirmation_email, send_everyone_email, send_test_email
 from flask_login import current_user, login_required
 from application.database import db
@@ -54,3 +54,8 @@ def send_subscribers_email():
 			send_everyone_email(subject=subject, content=content, recipients=recipients)
 		return redirect(url_for("main.home"))
 	return render_template("send_subscribers_email.html", form=form)
+
+@main.route("/gallery")
+def gallery():
+	submissions = Submission.query.filter_by(draft=0).all()
+	return render_template("gallery.html", submissions=submissions)
