@@ -10,7 +10,8 @@ main = Blueprint("main", __name__)
 @main.route('/')
 @main.route('/home')
 def home():
-	return render_template("home.html")
+	submissions = Submission.query.filter_by(draft=False).all()
+	return render_template("home.html", submissions=submissions)
 
 @main.route('/about')
 def about():

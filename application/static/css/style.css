@@ -122,3 +122,15 @@ th, td {
   margin-top: 30px;
   padding:30px;
 }
+
+.submission:hover{
+  background-color: #0275d8;
+  color: white !important;
+  text-decoration: none !important;
+
+}
+
+.submission{
+  color: black;
+  font-size: 20px;
+}

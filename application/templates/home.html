@@ -37,7 +37,7 @@
               </button>
             </div>
             <div style="text-align: center;">
-              <p style="margin-top: 20px;">The mailing list is for participants. If you want to support us, please visit the <a href="{{url_for('main.sponsor')}}" style="color: white; font-weight: bold; ">sponsor page</a>.</p>
+              <p style="margin-top: 20px;">The mailing list is for participants. If you would like to support us, please visit the <a href="{{url_for('main.sponsor')}}" style="color: white; font-weight: bold; ">sponsor page</a>.</p>
             </div>
             
           </div>
@@ -94,6 +94,53 @@
     </div>
   </div>
 </section>
+<hr style="border-width: 3px;">
+<section class="text-center bg-light features-icons">
+  <div class="container">
+    <h2 class="mb-5">Submissions</h2>
+    <div class="row">
+    {% for submission in submissions %}
+    <div class="col-md-4" >
+      <a class="d-block mx-auto portfolio-item submission" data-toggle="modal" href="#number{{loop.index}}" style="border: 2px solid black; border-radius: 5px; margin: 20px;">
+        <div style="padding: 50px 0;">
+          {{submission.team_name}}
+        </div>
+      </a>
+    </div>
+    <div class="modal text-center" role="dialog" tabindex="-1" id="number{{loop.index}}">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-lg-9 mx-auto">
+                                <h2 class="text-secondary mb-0">{{submission.team_name}}</h2>
+                                <hr class="star-dark mb-5">
+                                <p>Members: {% for member in submission.team_member %}<span>{{member.username}},</span>{% endfor %}</p>
+                                <p>{% for member in submission.team_member %}<span>{{submission.school_name}}</span>{% endfor %}</p>
+                                {% if submission.video is not none %}
+                                  <p>Video:<a href="{{submission.video}}" target="_blank">{{submission.video}}</a></p>
+                                {% endif %}
+                                {% if submission.github is not none %}
+                                  <p>Github:<a href="{{submission.github}}" target="_blank">{{submission.github}}</a></p>
+                                {% endif %}
+                                
+                                <p>{{submission.description|safe}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pb-5"><a class="btn btn-primary btn-lg mx-auto rounded-pill portfolio-modal-dismiss" role="button" data-dismiss="modal" style="color: white;"><i class="fa fa-close"></i>&nbsp;Close</a></div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+    </div>
+  </div>
+</section>
+
 <section class="showcase">
   <div class="container-fluid p-0">
     <div class="row no-gutters">
