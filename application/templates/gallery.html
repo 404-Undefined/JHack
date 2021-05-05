@@ -2,6 +2,7 @@
 {% block content %}
 
 {% for submission in submissions %}
+<div style="margin: 50px;">
   <h1>{{submission.team_name}}</h1>
   {% for member in submission.team_member %}
       <span>{{member.username}},</span>
@@ -17,6 +18,9 @@
   {% endif %}
 
   <p>{{submission.description|safe}}</p>
+
+
+</div>
 
 
 {% endfor %}
